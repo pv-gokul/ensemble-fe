@@ -9,7 +9,8 @@ import {
   UilRightIndentAlt,
   UilScenery,
   UilImageEdit,
-  UilEnglishToChinese
+  UilEnglishToChinese,
+  UilProcess
 } from "@iconscout/react-unicons";
 
 export const getTransformedData = (menuData) => {
@@ -48,4 +49,4 @@ export const getIcon = (type) =>
     TI2I: UilImageEdit,
     T2TT: UilEnglishToChinese,
     T2I: UilScenery
-  }[type] || UilTextFields);
+  }[type] || UilProcess);
