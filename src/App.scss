@@ -70,6 +70,17 @@
   height: calc(100vh - 76px);
   padding: 24px;
 
+  .list {
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #c8c8c8;
+    }
+    height: 60vh;
+  }
+
   section {
     display: flex;
     flex-direction: column;
@@ -107,6 +118,16 @@
       img {
         width: 30px;
       }
+    }
+  }
+  .template {
+    background: linear-gradient(
+      to bottom right,
+      #784bee 42.71%,
+      rgba(255, 0, 122, 0.6) 100%
+    );
+    .copy {
+      color: #2b1269;;
     }
   }
   .create-btn {

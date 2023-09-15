@@ -12,6 +12,19 @@ import { useNavigate } from "react-router-dom";
 
 const headings = ["Name", "Created On", "Last Updated", "Status"];
 
+export const TEMPLATES_LIST = [
+  {
+    name: "Convert audio to text",
+    description:
+      "Effortlessly transcribe audio into text with our Audio to Text Translator template. Save time and enhance your workflow.",
+  },
+  {
+    name: "Customized product background",
+    description:
+      "Create personalized product backgrounds with ease using our Custom Background Generator model.",
+  },
+];
+
 const TemplatesList = () => {
   const { data, error, isLoading } = useGetAllWorkflowsQuery();
   const navigate = useNavigate();
@@ -23,19 +36,6 @@ const TemplatesList = () => {
   const handleEdit = (id) => {
     navigate(`/workflow/edit/${id}`);
   };
-
-  const TEMPLATES_LIST = [
-    {
-      name: "Convert audio to text",
-      description:
-        "Effortlessly transcribe audio into text with our Audio to Text Translator template. Save time and enhance your workflow.",
-    },
-    {
-      name: "Customized product background",
-      description:
-        "Create personalized product backgrounds with ease using our Custom Background Generator model.",
-    },
-  ];
 
   const handleDelete = () => {};
 
