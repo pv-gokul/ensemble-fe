@@ -81,7 +81,7 @@ const AiModelsList = () => {
                   <div className="task-subtype">
                     <Chip
                       label={subtype.name}
-                      icon={subtype.icon}
+                      type={subtype.key}
                       onClick={() => setSelectedTask(subtype)}
                       isActive={subtype?.key === selectedTask?.key}
                     />
@@ -112,8 +112,8 @@ const AiModelsList = () => {
               <ModelCard
                 title={model.name}
                 icon={model.icon}
-                input={model.input}
-                output={model.output}
+                input={model.inputFormat[0]}
+                output={model.outputFormat}
                 popularity={model.popularity}
                 updated={model.updated}
               />
