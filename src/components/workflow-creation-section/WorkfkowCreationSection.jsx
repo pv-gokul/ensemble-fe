@@ -8,6 +8,12 @@ import IfNode from "../nodes/if-node/IfNode";
 import CodeNode from "../nodes/code-node/CodeNode";
 import HttpsNode from "../nodes/https-node/HttpsNode";
 import T2TTNode from "../nodes/T2TTNode/T2TTNode";
+import T2INode from "../nodes/T2INode/T2INode";
+import TI2INode from "../nodes/TI2INode/TI2INode";
+import T2STNode from "../nodes/T2STNode/T2STNode";
+import S2STNode from "../nodes/S2STNode/S2STNode";
+import S2TTNode from "../nodes/S2TTNode/S2TTNode";
+import AiNode from "../nodes/AINode/AiNode";
 
 const WorkflowCreationSection = ({
   nodes,
@@ -22,7 +28,17 @@ const WorkflowCreationSection = ({
 }) => {
   const nodeTypes = useMemo(
     () => ({
-      T2TT: T2TTNode,
+      LanguageDetection: AiNode,
+      Sentiment: AiNode,
+      Summarizer: AiNode,
+      PromptGenerator: AiNode,
+      T2T: AiNode,
+      S2TT: AiNode,
+      S2ST: AiNode,
+      T2ST: AiNode,
+      TI2I: AiNode,
+      T2TT: AiNode,
+      T2I: AiNode,
       startNode: StartNode,
       endNode: EndNode,
       ifNode: IfNode,

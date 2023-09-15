@@ -42,8 +42,6 @@ const ModelsDragMenu = ({models, onDragStart, onCustomNodeAdd}) => {
 
   },[data])
 
-  console.log(menuData);
-
   return (
     <div className='text-sm p-5'>
       {/* {models.map((item) => {
@@ -73,9 +71,9 @@ const ModelsDragMenu = ({models, onDragStart, onCustomNodeAdd}) => {
       <VStack>
       {Object.keys(menuData[item]).map(typeenum =>(
         <div
+        key={typeenum}
         className="inline-flex items-center border border-gray-300 rounded-lg p-2 mt-1 bg-white cursor-pointer"  
-        key={item.key}
-        onDragStart={(event) => onDragStart(event, item.key)}
+        onDragStart={(event) => onDragStart(event, typeenum)}
         draggable
       >
         <h4>{menuData[item][typeenum][0].type}</h4>

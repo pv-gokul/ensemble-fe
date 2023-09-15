@@ -1,4 +1,9 @@
-import { useNodesState, useEdgesState, MarkerType, getConnectedEdges } from "reactflow";
+import {
+  useNodesState,
+  useEdgesState,
+  MarkerType,
+  getConnectedEdges,
+} from "reactflow";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -30,7 +35,6 @@ const models = [
   { key: "ifNode", label: "IF" },
   { key: "codeNode", label: "Code" },
   { key: "httpsNode", label: "Https" },
-  { key: "T2TT", label: "Text To Text Translation" },
 ];
 
 function App() {
@@ -41,12 +45,7 @@ function App() {
   const reactFlowWrapper = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log({nodes});
-  console.log({edges});
-
-  const { data, isLoading, isSuccess  } = useGetAvailableModelsQuery();
-
-  console.log(data);
+  const { data, isLoading, isSuccess } = useGetAvailableModelsQuery();
 
   // TODO: handle the special scenario for if node since it has two outputs
   const handleOnConnect = useCallback(
@@ -61,7 +60,6 @@ function App() {
           type: "smoothstep",
           // TODO: if at all label is needed
           // label: "smoothstep"
-          // for arrow tip at the end of the node
           style: {
             strokeWidth: 1.5,
             stroke: "#808080",
@@ -88,9 +86,16 @@ function App() {
 
   const handleNodeEditSubmit = (updatedData) => {
     setNodes((prevNodes) => {
-      const editingNode = prevNodes.find((item) => item.id === currentSelectedNode.id);
-      const filteredNodes = prevNodes.filter((item) => item.id !== currentSelectedNode.id);
-      const modifiedEditingNode = {...editingNode, data: { ...editingNode.data, ...updatedData }};
+      const editingNode = prevNodes.find(
+        (item) => item.id === currentSelectedNode.id
+      );
+      const filteredNodes = prevNodes.filter(
+        (item) => item.id !== currentSelectedNode.id
+      );
+      const modifiedEditingNode = {
+        ...editingNode,
+        data: { ...editingNode.data, ...updatedData },
+      };
       return [...filteredNodes, modifiedEditingNode];
     });
     setCurrentSelectedNode(null);
@@ -167,20 +172,7 @@ function App() {
       </div>
       <div className="bg-indigo-100 w-[250px]">
         <h3 className="text-lg pb-3">Models</h3>
-          {/* {models.map((item) => {
-            return (
-              <div
-                className=""
-                key={item.key}
-                onClick={() => onCustomNodeAdd(item.key)}
-                onDragStart={(event) => onDragStart(event, item.key)}
-                draggable
-              >
-                <h4>{item.label}</h4>
-              </div>
-            );
-          })} */}
-          <ModelsDragMenu onDragStart={onDragStart} models={models}/>
+        <ModelsDragMenu onDragStart={onDragStart} models={models} />
       </div>
 
       {currentSelectedNode && (
@@ -209,7 +201,17 @@ function App() {
                       onCancel={handleNodEditCancel}
                     />
                   )}
-                  {currentSelectedNode.type === "T2TT" && (
+                  {(currentSelectedNode.type === "T2I" ||
+                    currentSelectedNode.type === "T2TT" ||
+                    currentSelectedNode.type === "TI2I" ||
+                    currentSelectedNode.type === "T2ST" ||
+                    currentSelectedNode.type === "S2ST" ||
+                    currentSelectedNode.type === "S2TT" ||
+                    currentSelectedNode.type === "T2T" ||
+                    currentSelectedNode.type === "PromptGenerator" ||
+                    currentSelectedNode.type === "Summarizer" ||
+                    currentSelectedNode.type === "Sentiment" ||
+                    currentSelectedNode.type === "LanguageDetection") && (
                     <T2TTNodeForm
                       onSubmit={handleNodeEditSubmit}
                       onCancel={handleNodEditCancel}
