@@ -74,7 +74,7 @@ const HttpNodeForm = ({ onSubmit }) => {
         </Stack>
 
         <Stack spacing={2}>
-          <FieldWrapper label="Send Headers">
+          <FieldWrapper label="Send Body">
             <Switch
               onChange={() => {
                 setSendBody((prev) => !prev);

@@ -5,7 +5,11 @@ import "reactflow/dist/style.css";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 import { useGetPokemonByNameQuery } from "../../api/baseApi";
-import HttpNodeForm from '../../components/node-detail-forms/http-node-form/HttpNodeForm';
+import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm"
+import { UilBracketsCurly } from "@iconscout/react-unicons";
+import { Stack, HStack, VStack } from "@chakra-ui/react";
+import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
+import { workflowIcons } from "../../contants/constans";
 
 const initialNodes = [];
 const initialEdges = [];
@@ -14,7 +18,7 @@ const models = [
   { key: "startNode", label: "Start" },
   { key: "endNode", label: "End" },
   { key: "ifNode", label: "IF" },
-  { key: "codeNode", label: "Code" },
+  { key: "codeNode", label: "Code",},
   { key: "httpsNode", label: "Https" },
 ];
 
@@ -66,9 +70,6 @@ function App() {
     });
   };
 
-  const onCustomNodeAdd = (key) => {
-    
-  };
 
   const onDrop = useCallback(
     (event) => {
@@ -113,13 +114,12 @@ function App() {
     setCurrentSelectedNode(node);
   }, []);
 
-  const handleNodeEditSubmit = useCallback((data) => {
-      console.log(data);
-  }, []);
-
   const onDragStart = (event, nodeType) => {
     event.dataTransfer.setData('application/reactflow', nodeType);
     event.dataTransfer.effectAllowed = 'move';
+  }
+  const handleNodeEditSubmit = (data) => {
+    console.log(data);
   };
 
   return (
@@ -156,12 +156,18 @@ function App() {
         />
       </div>
       {currentSelectedNode && (
-        <div className="p-5 bg-slate-300">
-          <div onClick={() => setCurrentSelectedNode(null)}>X</div>
-          Menu
+        <div className="p-2 bg-blue-200 cursor-pointer">
+          <HStack>
+            <div>{workflowIcons[currentSelectedNode?.type]}</div>
+            <div>{currentSelectedNode.data.label}</div>
+          </HStack>
           <div className="w-72">
-            {/* Render form components here */}
-            <HttpNodeForm onSubmit={handleNodeEditSubmit} />
+            {currentSelectedNode.type === "codeNode" && (
+              <CodeForm onSubmit={handleNodeEditSubmit} />
+            )}
+            {currentSelectedNode.type === "httpsNode" && (
+              <HttpNodeForm onSubmit={handleNodeEditSubmit} />
+            )}
           </div>
         </div>
       )}
