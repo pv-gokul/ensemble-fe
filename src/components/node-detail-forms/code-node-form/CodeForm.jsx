@@ -7,7 +7,7 @@ import FormWrapper from "../../form-wrapper/FormWrapper";
 
 const availableLanguages = [{ label: "Javascript", value: "javascript" }];
 
-const CodeForm = ({ language = "javascript", code = null, onSubmit }) => {
+const CodeForm = ({ language = "javascript", code = null, onSubmit, onCancel }) => {
   const [selectedLanguage, setSelectedLanguage] = useState(language);
   const [codeData, setCodeData] = useState(code);
 
@@ -17,7 +17,7 @@ const CodeForm = ({ language = "javascript", code = null, onSubmit }) => {
   };
 
   return (
-    <FormWrapper onSubmit={handleSubmit}>
+    <FormWrapper onSubmit={handleSubmit} onCancel={onCancel}>
       <Stack spacing={4}>
         <FieldWrapper>
           <Select defaultValue={language}>
