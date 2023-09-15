@@ -159,7 +159,7 @@ function App() {
 
   const handleSaveWorkflow = () => {
     saveWorkFlow({
-      name: "workflow name",
+      name: "workflow name2",
       config: {
         nodes,
         edges

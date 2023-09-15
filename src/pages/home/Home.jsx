@@ -1,10 +1,11 @@
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useGetAllWorkflowsQuery } from "../../api/baseApi";
 import Banner from "../../components/banner/Banner";
 import { FaPlus } from "react-icons/fa";
 
 const Home = () => {
   const { data, error, isLoading } = useGetAllWorkflowsQuery();
-  console.log(data);
+  const history = useHistory()
 
   // Define options for formatting
   const options = {
@@ -15,6 +16,10 @@ const Home = () => {
     // hour: "2-digit",
     // minute: "2-digit",
   };
+
+  const handleClick = (item) => {
+   history.push(`/workflow/test/${item.id}`)
+  }
 
   return (
     <div className="home">
@@ -32,7 +37,7 @@ const Home = () => {
             const nodes = item.config.nodes;
 
             return (
-              <div className="item">
+              <div className="item" onClick={() => handleClick(item)}>
                 <div className="images">
                   {nodes.map((node) => {
                     const image = node.data?.model?.id;

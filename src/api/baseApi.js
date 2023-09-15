@@ -25,6 +25,15 @@ export const pokemonApi = createApi({
         return {
           method: "POST",
           url: 'workflow',
+          body: data,
+        }
+      }
+    }),
+    triggerWorkflow: builder.mutation({
+      query: ({ url, data }) => {
+        return {
+          method: "POST",
+          url,
           body: data, // The data to send in the POST request.
         };
       },
@@ -39,5 +48,6 @@ export const {
   useGetAllWorkflowsQuery,
   useCallModelMutation,
   useGetAvailableModelsQuery,
-  useSaveWorkflowMutation
+  useSaveWorkflowMutation,
+  useTriggerWorkflowMutation
 } = pokemonApi;
