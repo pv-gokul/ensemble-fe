@@ -225,7 +225,7 @@ function App() {
             variant="unstyled"
             placeholder="Please provide a name for the workflow"
             value={workflowName}
-            w={300}
+            w={500}
             _placeholder={{
               // Set the color for the placeholder text
               fontSize: "16", // Set the font style (e.g., italic)
