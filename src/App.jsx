@@ -7,13 +7,17 @@ import AuthLayout from "./layout/AuthLayout";
 function App() {
   return (
     <Router>
-      <AuthLayout>
-        <Switch>
+      <Switch>
+        <AuthLayout>
           {router.map((route) => (
-            <Route key={route.path} path={route.path} exact component={route.Component} />
+            <Route
+              path={route.path}
+              component={route.Component}
+              key={route.path}
+            />
           ))}
-        </Switch>
-      </AuthLayout>
+        </AuthLayout>
+      </Switch>
     </Router>
   );
 }
