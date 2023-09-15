@@ -8,6 +8,8 @@ import AiModelsList from "./pages/ai-models/AiModelsList";
 import { CreateWorkflow, LoginPage } from "./pages";
 import Compare from "./pages/compare/Compare";
 import WorkflowTest from "./pages/workflow-test/WorkflowTest";
+import TemplatesList from "./pages/templates-list/TemplatesList";
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path="/createWorkflow" element={<CreateWorkflow />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/workflow/test/:id" element={<WorkflowTest />} />
+          <Route path="/templates" element={<TemplatesList />} />
         </Routes>
       </AuthLayout>
     </BrowserRouter>
