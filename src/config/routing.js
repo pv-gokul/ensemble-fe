@@ -2,6 +2,7 @@ import { CreateWorkflow, LoginPage } from "../pages";
 import Home from "../pages/home/Home";
 import Console from "../pages/console/Console";
 import Compare from "../pages/compare/Compare";
+import AiModelsList from "../pages/ai-models/AiModelsList";
 
 const router = [
   {
@@ -24,6 +25,10 @@ const router = [
     path: "/compare",
     Component: Compare,
   },
+  {
+    path: "/models",
+    Component: AiModelsList,
+  }
 ];
 
 export { router };

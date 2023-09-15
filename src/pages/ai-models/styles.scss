@@ -1,0 +1,62 @@
+.model-list-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr;
+  gap: 20px;
+  height: 100%;
+}
+
+.tasks-wrapper {
+  padding: 24px;
+  background: linear-gradient(#ffffff, #e8eaeb);
+  border-radius: 10px;
+}
+
+.task-header,
+.models-header {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.task-title {
+  font-size: 18px;
+}
+
+.task-container {
+  padding: 20px 10px 0px;
+}
+
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.models-wrapper {
+  padding: 24px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 20px;
+}
+
+.modal-card-container {
+  background-color: #ebebeb;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.model-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.description-wrapper {
+  background-color: #f2fbfd;
+  padding: 20px;
+  color: #807f7f;
+}
+
+.compare-checkbox {
+  padding-left: 20px;
+}

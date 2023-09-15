@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import "./styles.scss";
-import { FaHome, FaSearch, FaCog } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
+import { FaHome, FaSearch, FaCog, FaHeadSideVirus } from "react-icons/fa";
 
 const Sidebar = () => {
   const history = useHistory();
@@ -16,7 +16,7 @@ const Sidebar = () => {
       path: "/home",
     },
     {
-      icon: FaSearch,
+      icon: FaHeadSideVirus,
       path: "/models",
     },
     {
