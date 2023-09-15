@@ -76,10 +76,13 @@ function App() {
 
   useEffect(() => {
     if (workflowData?.body) {
-      const { config: {nodes, edges}, name} = workflowData.body
+      const {
+        config: { nodes, edges },
+        name,
+      } = workflowData.body;
       setNodes(nodes);
       setEdges(edges);
-      setWorkflowName(name)
+      setWorkflowName(name);
     }
   }, [workflowData]);
 
@@ -195,21 +198,20 @@ function App() {
   }, []);
 
   const handleSaveWorkflow = () => {
-    const isEdit = window.location.href.includes('/edit/');
+    const isEdit = window.location.href.includes("/edit/");
     // console.log(isEdit,window.location.href, "yo")
     const payload = {
       name: workflowName,
       config: {
         nodes,
         edges,
-      }
-    }
-    if(isEdit) {
-      console.log(payload)
-      updateWorkflow({payload, id});
-    }else saveWorkFlow(payload);
+      },
+    };
+    if (isEdit) {
+      console.log(payload);
+      updateWorkflow({ payload, id });
+    } else saveWorkFlow(payload);
   };
-
 
   const handleExecute = () => {
     // TODO: execute handler

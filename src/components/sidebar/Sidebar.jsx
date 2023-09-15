@@ -1,7 +1,14 @@
 /* eslint-disable react/jsx-key */
 import "./styles.scss";
-import { useNavigate } from "react-router-dom";
-import { FaHome, FaCog, FaHeadSideVirus, FaRegClone  } from "react-icons/fa";
+import { useNavigate, NavLink } from "react-router-dom";
+import {
+  FaHome,
+  FaSearch,
+  FaCog,
+  FaNetworkWired,
+  FaHeadSideVirus,
+  FaRegClone,
+} from "react-icons/fa";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -20,21 +27,26 @@ const Sidebar = () => {
       path: "/models",
     },
     {
-      icon: FaCog,
-      path: "/console",
-    },
-    {
       icon: FaRegClone,
       path: "/templates",
+    },
+    {
+      icon: FaNetworkWired,
+      path: "/console",
     },
   ];
 
   return (
     <div className="sidebar">
       {navs.map((nav) => (
-        <span key={nav.path} onClick={() => handleChangeRoute(nav.path)}>
+        <NavLink
+          to={nav.path}
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active" : ""
+          }
+        >
           <nav.icon color="grey" size={20} />
-        </span>
+        </NavLink>
       ))}
     </div>
   );

@@ -69,6 +69,16 @@
   overflow-y: scroll;
   height: calc(100vh - 76px);
   padding: 24px;
+  animation: fadein 0.5s ease-out;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   .list {
     overflow-y: auto;
@@ -115,6 +125,7 @@
       color: grey;
     }
     .images {
+      display: flex;
       img {
         width: 30px;
       }
@@ -127,7 +138,7 @@
       rgba(255, 0, 122, 0.6) 100%
     );
     .copy {
-      color: #2b1269;;
+      color: #2b1269;
     }
   }
   .create-btn {
@@ -278,4 +289,110 @@
   width: 50%;
   outline: none;
   height: 100px;
+}
+
+.login {
+  background-color: #f8f8ff;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    img {
+      width: 50px;
+    }
+
+    div {
+      // margin-bottom: 24px;
+      font-weight: 800;
+      color: $color_primary_lite;
+    }
+  }
+
+  .form {
+    background-color: #fff;
+    // height: 300px;
+    // width: 300px;
+    padding: 48px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .fields {
+      display: flex;
+      width: fit-content;
+      flex-direction: column;
+    }
+
+    input {
+      background-color: #f6f6ff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 8px;
+      width: 400px;
+    }
+
+    .info {
+      font-size: 12px;
+      color: grey;
+      span {
+        font-weight: 600;
+        color: $color_primary_lite;
+      }
+    }
+
+    button {
+      background-color: $color_primary_lite;
+      color: #fff;
+      padding: 8px 8px;
+      border-radius: 8px;
+      width: 400px;
+    }
+  }
+}
+
+.template-container {
+  background-color: #fff;
+  padding: 24px;
+  margin-top: 24px;
+  border-radius: 8px;
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(40, 40, 45);
+  }
+  .description {
+    margin-top: 12px;
+
+    color: grey;
+  }
+
+  button {
+    background-color: #6751bf;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
+  }
+}
+
+button {
+  background-color: $color_primary_lite;
+  color: #fff;
+  padding: 8px 8px;
+  border-radius: 8px;
 }

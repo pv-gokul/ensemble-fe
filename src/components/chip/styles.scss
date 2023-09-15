@@ -1,12 +1,13 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 8px 16px;
   margin: 4px;
-  background-color: #ffffff;
   cursor: pointer;
+  font-size: 12px;
+  border: 1px solid #7c50e2;
+  background-color: #faf7ff;
 }
 
 .chip-icon {
@@ -15,11 +16,10 @@
 }
 
 .chip-text {
-  font-size: 16px;
-  margin-left: 8px;
-  color: #565555;
+  margin-left: 4px;
+  font-size: 14px;
 }
 
 .active {
-  background-color: #fef7f7;
+  // background-color: #fef7f7;
 }

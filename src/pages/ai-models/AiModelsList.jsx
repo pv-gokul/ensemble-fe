@@ -7,6 +7,8 @@ import "./styles.scss";
 import Chip from "../../components/chip/Chip";
 import ModelCard from "../../components/model-card/ModelCard";
 import { setCompareModelData } from "../../redux/compareSlice";
+import { useGetModelsQuery } from "../../api/baseApi";
+import { useNavigate } from "react-router-dom";
 
 const initialModelData = {
   name: "Summarizer",
@@ -37,110 +39,15 @@ const initialModelData = {
 };
 
 const AiModelsList = () => {
+  const { data, error, isLoading } = useGetModelsQuery();
   const [selectedTask, setSelectedTask] = useState(initialModelData);
   const [compareModels, setCompareModels] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const modelData = [
-    {
-      type: "Natural Language Processing",
-      icon: FaNeos,
-      subtypes: [
-        {
-          name: "Summarizer",
-          key: "summarizer",
-          icon: FaNeos,
-          description:
-            "A text summarizer is an online tool that wraps up a text to a specified short length. It condenses a long article to main points.",
-          models: [
-            {
-              id: "d8c8f55a-89d0-4a9d-97e2-1d298579c2eb",
-              name: "Bert",
-              icon: FaNeos,
-              input: { field: "string", type: "String" },
-              output: { field: "string", type: "String" },
-              endpoint: "string",
-              popularity: "2.5K",
-              updated: "Updated 2 days ago",
-            },
-            {
-              id: "ae9e619b-9400-4f32-a37d-70377efb88d6",
-              name: "Chat gpt",
-              icon: FaNeos,
-              input: { field: "string", type: "String" },
-              output: { field: "string", type: "String" },
-              endpoint: "string",
-              popularity: "4.5K",
-              updated: "Updated 12 hours ago",
-            },
-          ],
-        },
-        { name: "Sentiment Analysis", key: "sentiment-analysis", icon: FaNeos },
-        {
-          name: "Text Classification",
-          key: "text-classification",
-          icon: FaNeos,
-        },
-      ],
-      key: "NLP",
-    },
-    {
-      type: "Computer Vision",
-      icon: FaNeos,
-      subtypes: [
-        {
-          name: "CNN",
-          key: "CNN",
-          icon: FaNeos,
-          models: [
-            {
-              id: "3f8a6ddb-6b70-4ef3-a897-4eef0f462d43",
-              name: "Bert",
-              icon: FaNeos,
-              input: { field: "string", type: "string" },
-              output: { field: "string", type: "string" },
-              endpoint: "string",
-            },
-            {
-              id: "2ec01db8-5a25-4e0e-a632-7df3ebd505c2",
-              name: "Chat gpt",
-              icon: FaNeos,
-              input: { field: "string", type: "string" },
-              output: { field: "string", type: "string" },
-              endpoint: "string",
-            },
-          ],
-        },
-        {
-          name: "Sentiment Analysis",
-          key: "sentiment-analysis",
-          icon: FaNeos,
-          models: [
-            {
-              name: "Something",
-              icon: FaNeos,
-              input: { field: "string", type: "string" },
-              output: { field: "string", type: "string" },
-              endpoint: "string",
-            },
-            {
-              name: "Nothing",
-              icon: FaNeos,
-              input: { field: "string", type: "string" },
-              output: { field: "string", type: "string" },
-              endpoint: "string",
-            },
-          ],
-        },
-        {
-          name: "Text Classification",
-          key: "text-classification",
-          icon: FaNeos,
-        },
-      ],
-      key: "CV",
-    },
-  ];
+  console.log(data);
+
+  const modelData = data?.body;
 
   const handleCompareCheck = (e, value) => {
     const { checked } = e.target;
@@ -155,23 +62,26 @@ const AiModelsList = () => {
     const modelData = compareModels.map((id) => {
       return selectedTask.models.find((model) => model.id === id);
     });
+    console.log(modelData);
     dispatch(setCompareModelData(modelData));
+    navigate("/compare");
   };
 
   return (
     <div className="model-list-wrapper">
       <div className="tasks-wrapper">
-        <div className="task-header">Tasks</div>
+        <div className="title">Tasks</div>
+
         <div className="tasks-list">
-          {modelData.map((model) => (
+          {modelData?.map((model) => (
             <div className="task-container">
               <div className="task-title">{model.type}</div>
               <div className="tasks">
-                {model?.subtypes?.map((subtype) => (
+                {model.subtypes.map((subtype) => (
                   <div className="task-subtype">
                     <Chip
-                      label={subtype?.name}
-                      icon={subtype?.icon}
+                      label={subtype.name}
+                      icon={subtype.icon}
                       onClick={() => setSelectedTask(subtype)}
                       isActive={subtype?.key === selectedTask?.key}
                     />
@@ -182,8 +92,9 @@ const AiModelsList = () => {
           ))}
         </div>
       </div>
+      <div className="divider" />
       <div className="models-wrapper">
-        <div className="models-header">Models</div>
+        <div className="title">Models</div>
         <div className="description-wrapper">
           <div className="title">{selectedTask.name}</div>
           <div className="description">{selectedTask.description}</div>
@@ -209,8 +120,12 @@ const AiModelsList = () => {
             </div>
           ))}
         </div>
+        <div className="compare-wrapper">
+          Add your models to compare !
+          <button onClick={handleCompare}>Compare now</button>
+        </div>
       </div>
-      <button onClick={handleCompare}>Compare</button>
+      {/* <button onClick={handleCompare}>Compare</button> */}
     </div>
   );
 };

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useGetAllWorkflowsQuery, useLazyGetWorkflowByIdQuery, useSaveWorkflowMutation } from "../../api/baseApi";
+import {
+  useGetAllWorkflowsQuery,
+  useLazyGetWorkflowByIdQuery,
+  useSaveWorkflowMutation,
+} from "../../api/baseApi";
 import {
   Card,
   CardHeader,
@@ -36,12 +40,13 @@ export const TEMPLATES_LIST = [
 ];
 
 const TemplatesList = () => {
-  const [newWorkflowName, setNewWorkflowName] = useState('');
+  const [newWorkflowName, setNewWorkflowName] = useState("");
   const { data, error, isLoading } = useGetAllWorkflowsQuery();
   const [saveWorkFlow] = useSaveWorkflowMutation();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [getWorkflowDetails, { isLoading: getWorkflowDetailsIsLoading }] = useLazyGetWorkflowByIdQuery();
-  const [selectedTemplateId ,setSelectedTemplateId] = useState('');
+  const [getWorkflowDetails, { isLoading: getWorkflowDetailsIsLoading }] =
+    useLazyGetWorkflowByIdQuery();
+  const [selectedTemplateId, setSelectedTemplateId] = useState("");
   const navigate = useNavigate();
 
   const handleCreate = () => {
@@ -57,20 +62,21 @@ const TemplatesList = () => {
       name: "Convert audio to text",
       description:
         "Effortlessly transcribe audio into text with our Audio to Text Translator template. Save time and enhance your workflow.",
-      id: '1',
+      id: "1",
     },
     {
       name: "Customized product background",
       description:
         "Create personalized product backgrounds with ease using our Custom Background Generator model.",
-      id: '2',
+      id: "2",
     },
     {
       name: "Sentiment analysis of YouTube comments",
-      description: "Instantly analyze YouTube comments with our Sentiment Analysis AI.",
+      description:
+        "Instantly analyze YouTube comments with our Sentiment Analysis AI.",
       // id: '/workflow/edit/29'
-      id: '29'
-    }
+      id: "29",
+    },
   ];
 
   const handleDelete = () => {};
@@ -92,10 +98,9 @@ const TemplatesList = () => {
       const saveWorkflowResult = await saveWorkFlow(newWorkflowBody);
       console.log(saveWorkflowResult);
       if (saveWorkflowResult.data.body.id) {
-        navigate(`/workflow/edit/${saveWorkflowResult.data.body.id}`)
+        navigate(`/workflow/edit/${saveWorkflowResult.data.body.id}`);
       }
-
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -110,47 +115,51 @@ const TemplatesList = () => {
         Create workflows using the predefined templates
       </div>
 
-      <div className="mt-4 flex gap-6">
+      <div>
         {TEMPLATES_LIST.map((item) => {
           return (
-            <Card key={item.name} className="w-96">
-              <CardHeader>
+            <div className="template-container">
+              <div className="header">
                 <div className="text-xl">{item.name}</div>
-              </CardHeader>
-              <CardBody>
+              </div>
+              <div className="description">
                 <div className="text-gray-500">{item.description}</div>
-              </CardBody>
-              <CardFooter>
+              </div>
+              <div className="footer">
                 <div className="flex flex-row flex-1 justify-end">
-                  <Button className="mr-2">Test</Button>
-                  {/* <Button onClick={() => item.onClickHandle ? navigate(item.onClickHandle) : null}>Create Copy</Button> */}
-                  <Button onClick={() => handleCreateCopy(item.id)}>Create Copy</Button>
+                  <button className="mr-2">Test</button>
+                  <button>Create Copy</button>
                 </div>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           );
         })}
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader backgroundColor="white">
-              <div className="text-black">Enter Workflow Name</div>
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <div className="pb-2">
-                <FieldWrapper label="Name">
-                  <Input value={newWorkflowName} onChange={(e) => setNewWorkflowName(e.target.value)} />
-                </FieldWrapper>
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button onClick={handleCreateCopyWithExistingData}>Create Copy</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader backgroundColor="white">
+            <div className="text-black">Enter Workflow Name</div>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <div className="pb-2">
+              <FieldWrapper label="Name">
+                <Input
+                  value={newWorkflowName}
+                  onChange={(e) => setNewWorkflowName(e.target.value)}
+                />
+              </FieldWrapper>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={handleCreateCopyWithExistingData}>
+              Create Copy
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
