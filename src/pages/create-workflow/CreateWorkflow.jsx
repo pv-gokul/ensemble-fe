@@ -86,7 +86,7 @@ function App() {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }} className="flex flex-row">
+    <div className="flex flex-row h-full">
       <div className="bg-blue-300 p-5">
         <h3 className="text-lg pb-3">Models</h3>
         <div>
@@ -103,14 +103,16 @@ function App() {
           })}
         </div>
       </div>
-      <WorkflowCreationSection
-        nodes={nodes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        handleOnConnect={handleOnConnect}
-        onNodeClick={handleNodeClick}
-      />
+      <div className="flex-1">
+        <WorkflowCreationSection
+          nodes={nodes}
+          onNodesChange={onNodesChange}
+          edges={edges}
+          onEdgesChange={onEdgesChange}
+          handleOnConnect={handleOnConnect}
+          onNodeClick={handleNodeClick}
+        />
+      </div>
       {currentSelectedNode && (
         <div className="p-2 bg-blue-200 cursor-pointer">
           <div onClick={() => setCurrentSelectedNode(null)}>X</div>
