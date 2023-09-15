@@ -70,6 +70,6 @@ export const {
   useTriggerWorkflowMutation,
   useGetWorkflowByIdQuery,
   useLazyGetWorkflowByIdQuery,
-  useUpdateWorkflowMutation
+  useUpdateWorkflowMutation,
   useGetAllTemplatesQuery
 } = pokemonApi;
