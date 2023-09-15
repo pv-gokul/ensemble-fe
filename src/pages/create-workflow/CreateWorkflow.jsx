@@ -309,6 +309,8 @@ function App() {
                     <T2TTNodeForm
                       onSubmit={handleNodeEditSubmit}
                       onCancel={handleNodEditCancel}
+                      type={currentSelectedNode.type}
+                      currentSelectedNode={currentSelectedNode}
                     />
                   )}
                 </div>
