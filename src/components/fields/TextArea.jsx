@@ -1,8 +1,8 @@
 import React, { forwardRef } from "react";
 
-const TextArea = forwardRef(({ fieldName, value, handleFieldChange }, ref) => (
+const TextArea = forwardRef(({ fieldName, value, handleFieldChange, classes }, ref) => (
   <textarea
-    className="textarea"
+    className={`textarea ${classes}`}
     id="message"
     rows="8"
     ref={ref}
