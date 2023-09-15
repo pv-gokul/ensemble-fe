@@ -1,4 +1,4 @@
-import { useNodesState, useEdgesState, MarkerType } from "reactflow";
+import { useNodesState, useEdgesState, MarkerType, getConnectedEdges } from "reactflow";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -6,19 +6,16 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
 } from "@chakra-ui/react";
 import "reactflow/dist/style.css";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 import { useGetAvailableModelsQuery } from "../../api/baseApi";
-import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm"
-import { UilBracketsCurly } from "@iconscout/react-unicons";
-import { Stack, HStack, VStack } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
+import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
 import { workflowIcons } from "../../contants/constans";
 import ModelsDragMenu from "../../components/ModelsDragMenu/ModelsDragMenu";
@@ -51,6 +48,7 @@ function App() {
 
   console.log(data);
 
+  // TODO: handle the special scenario for if node since it has two outputs
   const handleOnConnect = useCallback(
     (params) => {
       setEdges((eds) => [
