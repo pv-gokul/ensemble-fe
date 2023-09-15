@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { FcProcess } from "react-icons/fc";
 import InputComponent from "../../components/input-component/InputComponent";
@@ -8,6 +8,8 @@ import {
   useTriggerWorkflowMutation,
 } from "../../api/baseApi";
 import { useParams } from "react-router-dom";
+import { useEdgesState, useNodesState } from "reactflow";
+import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 
 const WorkflowTest = (props) => {
   const { id } = useParams();
@@ -25,6 +27,8 @@ const WorkflowTest = (props) => {
   });
   const { data, isLoading: workflowLoading } = useGetWorkflowByIdQuery(id);
   const [formData, setFormData] = useState({});
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [trigger, { isLoading, isError, data: output }] =
     useTriggerWorkflowMutation();
 
@@ -35,13 +39,31 @@ const WorkflowTest = (props) => {
     }));
   };
 
+  useEffect(() => {
+    if (data?.body) {
+      const {
+        config: { nodes, edges },
+        name,
+      } = data.body;
+      setNodes(nodes);
+      setEdges(edges);
+    }
+  }, [data]);
+
+
   const handleTestWorkflow = () => {
     trigger({ url: `workflow/trigger/${id}`, data: formData });
   };
 
   return (
     <div className="workflow-test">
-      <div className="workflow-diagram title">Test your workflow</div>
+      <div className="workflow-diagram title">
+        Test your workflow
+      <WorkflowCreationSection
+          nodes={nodes}
+          edges={edges}
+        />
+      </div>
       <div className="input-output">
         <div className="component input">
           <div className="heading">Input</div>
