@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import "./styles.scss";
 import { useNavigate } from "react-router-dom";
-import { FaHome, FaSearch, FaCog, FaHeadSideVirus } from "react-icons/fa";
+import { FaHome, FaCog, FaHeadSideVirus, FaRegClone  } from "react-icons/fa";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -22,6 +22,10 @@ const Sidebar = () => {
     {
       icon: FaCog,
       path: "/console",
+    },
+    {
+      icon: FaRegClone,
+      path: "/templates",
     },
   ];
 
