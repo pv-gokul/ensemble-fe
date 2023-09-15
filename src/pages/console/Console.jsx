@@ -71,7 +71,7 @@ const Console = () => {
                     </PopoverTrigger>
                     <PopoverContent style={{ marginRight: "24px" }}>
                       <PopoverBody className="menu">
-                        <span onClick={() => handleEdit("123")}>Edit</span>
+                        <span onClick={() => handleEdit(item.id)}>Edit</span>
                         <span onClick={handleDelete}>Delete</span>
                       </PopoverBody>
                     </PopoverContent>

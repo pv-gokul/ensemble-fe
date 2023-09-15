@@ -19,6 +19,7 @@ function App() {
           <Route path="/models" element={<AiModelsList />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/createWorkflow" element={<CreateWorkflow />} />
+          <Route path="/workflow/edit/:id" element={<CreateWorkflow />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/workflow/test/:id" element={<WorkflowTest />} />
         </Routes>

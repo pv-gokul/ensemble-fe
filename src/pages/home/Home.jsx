@@ -39,7 +39,7 @@ const Home = () => {
             return (
               <div className="item" onClick={() => handleClick(item)}>
                 <div className="images">
-                  {nodes.map((node) => {
+                  {/* {nodes.map((node) => {
                     const image = node.data?.model?.id;
                     console.log(image);
                     if (image) {
@@ -47,7 +47,7 @@ const Home = () => {
                         <img src={`public/images/${image}.webp`} alt="node" />
                       );
                     }
-                  })}
+                  })} */}
                 </div>
                 <div className="name">{item.name}</div>
                 <div className="update">Updated on {formattedDate}</div>

@@ -16,9 +16,16 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import "reactflow/dist/style.css";
+import { Input } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
-import { useGetAvailableModelsQuery, useSaveWorkflowMutation } from "../../api/baseApi";
+import {
+  useGetAvailableModelsQuery,
+  useGetWorkflowByIdQuery,
+  useSaveWorkflowMutation,
+  useUpdateWorkflowMutation,
+} from "../../api/baseApi";
 import { HStack } from "@chakra-ui/react";
 import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
@@ -42,11 +49,39 @@ function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [currentSelectedNode, setCurrentSelectedNode] = useState(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [workflowName, setWorkflowName] = useState("");
   const reactFlowWrapper = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data: modelsList, isLoading, isSuccess } = useGetAvailableModelsQuery();
-  const [saveWorkFlow, { data }] = useSaveWorkflowMutation();
+  const {
+    data: modelsList,
+    isLoading,
+    isSuccess,
+  } = useGetAvailableModelsQuery();
+  const [saveWorkFlow] = useSaveWorkflowMutation();
+  const [updateWorkflow] = useUpdateWorkflowMutation();
+
+  const currentURL = window.location.href;
+
+  // Use a regular expression to extract the 'id' parameter
+  const idMatch = currentURL.match(/\/workflow\/edit\/(\d+)/);
+
+  const id = idMatch?.[1];
+  console.log(id);
+  const {
+    data: workflowData,
+    error,
+    isLoading: isWorkflowLoading,
+  } = useGetWorkflowByIdQuery(id);
+
+  useEffect(() => {
+    if (workflowData?.body) {
+      const { config: {nodes, edges}, name} = workflowData.body
+      setNodes(nodes);
+      setEdges(edges);
+      setWorkflowName(name)
+    }
+  }, [workflowData]);
 
   // TODO: handle the special scenario for if node since it has two outputs
   const handleOnConnect = useCallback(
@@ -128,7 +163,9 @@ function App() {
           data: {
             label: nodeDetail?.label || "",
             onDelete: () => handleNodeDeleteClick(id),
-            ...(modelId ? { model: modelsList.body.find((item) => item.id === modelId) }: {})
+            ...(modelId
+              ? { model: modelsList.body.find((item) => item.id === modelId) }
+              : {}),
           },
           type,
         },
@@ -158,18 +195,63 @@ function App() {
   }, []);
 
   const handleSaveWorkflow = () => {
-    saveWorkFlow({
-      name: "workflow name2",
+    const isEdit = window.location.href.includes('/edit/');
+    // console.log(isEdit,window.location.href, "yo")
+    const payload = {
+      name: workflowName,
       config: {
         nodes,
-        edges
-      },
-  });
+        edges,
+      }
+    }
+    if(isEdit) {
+      console.log(payload)
+      updateWorkflow({payload, id});
+    }else saveWorkFlow(payload);
+  };
+
+
+  const handleExecute = () => {
+    // TODO: execute handler
   };
   return (
     <div className="flex flex-row h-full">
-      <button onClick={handleSaveWorkflow}>SAveasdjfhaksdjfgaksdjhf</button>
-      <div className="flex-1" ref={reactFlowWrapper}>
+      <div className="flex-1 flex-col" ref={reactFlowWrapper}>
+        <div
+          id="workflowHeader"
+          className="h-[60px] bg-white border-b-2 border-solid border-efecf6 pl-3 pt-3 flex justify-between"
+        >
+          <Input
+            variant="unstyled"
+            placeholder="Please provide a name for the workflow"
+            value={workflowName}
+            w={300}
+            _placeholder={{
+              // Set the color for the placeholder text
+              fontSize: "16", // Set the font style (e.g., italic)
+              // You can add more CSS properties as needed
+            }}
+            h={6}
+            fontSize={27}
+            onChange={(e) => setWorkflowName(e.target.value)}
+          />
+          <div className="flex gap-2 pr-5">
+            <Button
+              colorScheme="gray"
+              variant="solid"
+              onClick={handleSaveWorkflow}
+            >
+              Save
+            </Button>
+            <Button
+              colorScheme="purple"
+              variant="outline"
+              onClick={handleExecute}
+            >
+              Execute
+            </Button>
+          </div>
+        </div>
         <WorkflowCreationSection
           nodes={nodes}
           onNodesChange={onNodesChange}
