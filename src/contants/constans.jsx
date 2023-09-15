@@ -11,3 +11,11 @@ export const workflowIcons = {
 export const modelsDummyData = {
   T2TT: [{ id: 1, name: "Chat GPT" }, { id: 2, name: "My GPT Model" }]
 };
+
+export const generalModels = [
+  { key: "startNode", label: "Start" },
+  { key: "endNode", label: "End" },
+  { key: "ifNode", label: "IF" },
+  { key: "codeNode", label: "Code" },
+  { key: "httpsNode", label: "Https" }
+];

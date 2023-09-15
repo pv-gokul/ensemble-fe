@@ -9,7 +9,9 @@ import {
   Box
 } from '@chakra-ui/react';
 import { Stack, HStack, VStack } from '@chakra-ui/react'
-const ModelsDragMenu = ({models, onDragStart, onCustomNodeAdd}) => {
+import { generalModels } from '../../contants/constans';
+import { UilBars } from '@iconscout/react-unicons'
+const ModelsDragMenu = ({ onDragStart, onCustomNodeAdd}) => {
   const [menuData, setMenuData] = useState({})
   const { data, isLoading, isSuccess  } = useGetAvailableModelsQuery();
 
@@ -33,6 +35,7 @@ const ModelsDragMenu = ({models, onDragStart, onCustomNodeAdd}) => {
       groupedData[category][typeenum].push(item);
   }); 
 
+  groupedData
   return groupedData;
 
   }
@@ -67,22 +70,49 @@ const ModelsDragMenu = ({models, onDragStart, onCustomNodeAdd}) => {
         <AccordionIcon />
       </AccordionButton>
     </h2>
-    <AccordionPanel p-0>
+    <AccordionPanel p={0}>
       <VStack>
       {Object.keys(menuData[item]).map(typeenum =>(
         <div
         key={typeenum}
-        className="inline-flex items-center border border-gray-300 rounded-lg p-2 mt-1 bg-white cursor-pointer"  
+        className="inline-flex items-center border border-gray-300 rounded-lg p-2 mt-1 bg-white cursor-pointer w-full justify-between"  
         onDragStart={(event) => onDragStart(event, typeenum)}
         draggable
       >
         <h4>{menuData[item][typeenum][0].type}</h4>
+        <UilBars/>
       </div>
       )) }
       </VStack>
     </AccordionPanel>
   </AccordionItem>
       ))}
+
+<AccordionItem>
+    <h2>
+      <AccordionButton _expanded={{ bg: '#47269e', color: 'white' }}>
+        <Box as="span" flex='1' textAlign='left'>
+          General node
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel p={0}>
+      <VStack>
+      {generalModels.map(item =>(
+        <div
+        className="inline-flex items-center border border-gray-300 rounded-lg p-2 mt-1 bg-white cursor-pointer w-full justify-between"  
+        key={item.key}
+        onDragStart={(event) => onDragStart(event, item.key)}
+        draggable
+      >
+        <h4>{item.label}</h4>
+        <UilBars/>
+      </div>
+      )) }
+      </VStack>
+    </AccordionPanel>
+  </AccordionItem>
      
 </Accordion>
     </div>
