@@ -1,5 +1,5 @@
 import { useNodesState, useEdgesState, MarkerType } from "reactflow";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Modal,
@@ -81,6 +81,16 @@ function App() {
     });
   };
 
+  const handleNodeEditSubmit = (updatedData) => {
+    setNodes((prevNodes) => {
+      const editingNode = prevNodes.find((item) => item.id === currentSelectedNode.id);
+      const filteredNodes = prevNodes.filter((item) => item.id !== currentSelectedNode.id);
+      const modifiedEditingNode = {...editingNode, data: { ...editingNode.data, ...updatedData }};
+      return [...filteredNodes, modifiedEditingNode];
+    });
+    setCurrentSelectedNode(null);
+  };
+
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
@@ -130,11 +140,6 @@ function App() {
     onOpen();
   }, []);
 
-  const handleNodeEditSubmit = useCallback((data) => {
-    console.log(data, "Node Edit submitted");
-    setCurrentSelectedNode(null);
-  }, []);
-
   const handleNodEditCancel = useCallback(() => {
     onClose();
     setCurrentSelectedNode(null);
@@ -150,7 +155,6 @@ function App() {
               <div
                 className=""
                 key={item.key}
-                onClick={() => onCustomNodeAdd(item.key)}
                 onDragStart={(event) => onDragStart(event, item.key)}
                 draggable
               >

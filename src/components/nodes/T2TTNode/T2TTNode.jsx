@@ -15,6 +15,7 @@ function T2TTNode({ data }) {
             <UilTextFields size="40" color="#fcba03" />
           </div>
           <div className='text-center'>{data.label}</div>
+          <div className='text-sm text-gray-400'>{data.name}</div>
         </div>
       </NodeMenuWrapper>
       <CustomNodeHandle type="source" position={Position.Right} />

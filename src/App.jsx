@@ -10,7 +10,7 @@ function App() {
       <AuthLayout>
         <Switch>
           {router.map((route) => (
-            <Route path={route.path} exact component={route.Component} />
+            <Route key={route.path} path={route.path} exact component={route.Component} />
           ))}
         </Switch>
       </AuthLayout>

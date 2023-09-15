@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Checkbox, Select } from "@chakra-ui/react";
+import { Checkbox, Input, Select } from "@chakra-ui/react";
 import FieldWrapper from "../../FieldWapper/FieldWrapper";
 import Editor from "@monaco-editor/react";
 import { Stack } from "@chakra-ui/react";
@@ -14,10 +14,11 @@ const T2TTNodeForm = ({
   onSubmit,
   onCancel,
 }) => {
+  const [name, setName] = useState();
   const [selectedModelId, setSelectedModelId] = useState();
   const [useFallback, setUseFallback] = useState(true);
   const handleSubmit = () => {
-    const formData = {};
+    const formData = { modelId: selectedModelId, name };
     onSubmit(formData);
   };
 
@@ -28,8 +29,11 @@ const T2TTNodeForm = ({
   return (
     <FormWrapper onSubmit={handleSubmit} onCancel={onCancel}>
       <Stack spacing={4}>
+        <FieldWrapper label="Name">
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
+        </FieldWrapper>
         <FieldWrapper label="Select Model">
-          <Select value={selectedModelId} onChange={handleModelSelectionChange}>
+          <Select value={selectedModelId} onChange={(e) => handleModelSelectionChange(e.target.value)}>
             {modelsDummyData.T2TT.map((item) => {
               return (
                 <option key={item.id} value={item.id}>

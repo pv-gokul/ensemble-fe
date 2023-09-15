@@ -15,6 +15,7 @@ function HttpsNode({ data }) {
             <UilGlobe size="40" color="#0356fc" />
           </div>
           <div>{data.label}</div>
+          <div className='text-sm text-gray-400'>{data.name}</div>
         </div>
       </NodeMenuWrapper>
       <CustomNodeHandle type="source" position={Position.Right} />
