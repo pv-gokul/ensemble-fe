@@ -3,11 +3,7 @@ import Header from "../../components/header/Header";
 import AuthLayout from "../../layout/AuthLayout";
 
 const Home = () => {
-  return (
-    <AuthLayout>
-      <Banner />
-    </AuthLayout>
-  );
+  return <Banner />;
 };
 
 export default Home;

@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-key */
 import "./styles.scss";
 import { FaHome, FaSearch, FaCog } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleChangeRoute = (path) => {
-    navigate(path);
+    history.push(path);
   };
 
   const navs = [

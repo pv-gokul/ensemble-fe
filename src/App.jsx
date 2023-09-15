@@ -1,10 +1,21 @@
 import "./App.scss";
 
-import { RouterProvider } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { router } from "./config/routing";
+import AuthLayout from "./layout/AuthLayout";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Router>
+      <AuthLayout>
+        <Switch>
+          {router.map((route) => (
+            <Route path={route.path} exact component={route.Component} />
+          ))}
+        </Switch>
+      </AuthLayout>
+    </Router>
+  );
 }
 
 export default App;

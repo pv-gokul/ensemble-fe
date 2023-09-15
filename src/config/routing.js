@@ -1,9 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
-
 import { CreateWorkflow, LoginPage } from "../pages";
 import Home from "../pages/home/Home";
+import Console from "../pages/console/Console";
 
-const router = createBrowserRouter([
+const router = [
   {
     path: "/login",
     Component: LoginPage,
@@ -16,6 +15,10 @@ const router = createBrowserRouter([
     path: "/home",
     Component: Home,
   },
-]);
+  {
+    path: "/console",
+    Component: Console,
+  },
+];
 
-export { router }
+export { router };
