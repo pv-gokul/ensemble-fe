@@ -80,7 +80,6 @@ function App() {
   const handleNodeClick = (node) => {
     setCurrentSelectedNode(node);
   };
-  console.log(currentSelectedNode);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }} className="flex flex-row">
@@ -108,6 +107,11 @@ function App() {
         handleOnConnect={handleOnConnect}
         onNodeClick={handleNodeClick}
       />
+      {currentSelectedNode && (
+        <div >
+          Menu
+        </div>
+      )}
     </div>
   );
 }
