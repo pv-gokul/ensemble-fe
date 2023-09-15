@@ -2,6 +2,7 @@ import { useNodesState, useEdgesState, MarkerType } from "reactflow";
 import { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "reactflow/dist/style.css";
+import { Select } from "@chakra-ui/react";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 import { useGetPokemonByNameQuery } from "../../api/baseApi";
@@ -13,8 +14,8 @@ const models = [
   { key: "startNode", label: "Start" },
   { key: "endNode", label: "End" },
   { key: "ifNode", label: "IF" },
-  { key: "codeNode", label: 'Code' },
-  { key: "httpsNode", label: 'Https' }
+  { key: "codeNode", label: "Code" },
+  { key: "httpsNode", label: "Https" },
 ];
 
 function App() {
@@ -60,7 +61,7 @@ function App() {
     setNodes((prev) => {
       console.log(prev);
       return prev.filter((item) => item.id !== id);
-    })
+    });
   };
 
   const onCustomNodeAdd = (key) => {
@@ -71,7 +72,10 @@ function App() {
       {
         id,
         position: { x: 300, y: 100 },
-        data: { label: nodeDetail?.label || "", onDelete: () => handleNodeDeleteClick(id) },
+        data: {
+          label: nodeDetail?.label || "",
+          onDelete: () => handleNodeDeleteClick(id),
+        },
         type: key,
       },
     ]);
@@ -109,10 +113,11 @@ function App() {
       />
       {currentSelectedNode && (
         <div className="p-2 bg-blue-200 cursor-pointer">
-          <div onClick={() => setCurrentSelectedNode(null)}>
-            X
-          </div>
+          <div onClick={() => setCurrentSelectedNode(null)}>X</div>
           Menu
+          <div className="w-72">
+            {/* Render form components here */}
+          </div>
         </div>
       )}
     </div>
