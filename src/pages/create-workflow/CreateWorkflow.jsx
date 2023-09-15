@@ -40,9 +40,6 @@ function App() {
   const reactFlowWrapper = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log({nodes});
-  console.log({edges});
-
   const { data } = useGetPokemonByNameQuery();
 
   const handleOnConnect = useCallback(

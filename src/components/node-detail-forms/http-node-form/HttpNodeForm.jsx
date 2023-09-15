@@ -47,7 +47,7 @@ const HttpNodeForm = ({ onSubmit, onCancel }) => {
         </FieldWrapper>
 
         <FieldWrapper label="URL">
-          <Input placeholder="Url" onChange={(e) => { console.log(e.target.value); setHttpUrl(e.target.value) }} />
+          <Input placeholder="Url" onChange={(e) => { setHttpUrl(e.target.value) }} />
         </FieldWrapper>
 
         <Stack spacing={2}>
