@@ -12,6 +12,7 @@ const httpRequestTypes = [
 ];
 
 const HttpNodeForm = ({ onSubmit }) => {
+  const [httpMethod, setHttpMethod] = useState('GET');
   const [sendHeaders, setSendHeaders] = useState(false);
   const [jsonHeader, setJsonHeader] = useState(
     '{ "Content-Type": "", "Authorization": "", "User-Agent": "" }'
@@ -23,6 +24,7 @@ const HttpNodeForm = ({ onSubmit }) => {
     onSubmit({
       ...(sendHeaders ? { header: jsonHeader } : {}),
       ...(sendBody ? { body: jsonBody } : {}),
+      method: httpMethod,
     });
   };
   return (
@@ -30,7 +32,7 @@ const HttpNodeForm = ({ onSubmit }) => {
       <Stack>
         <FieldWrapper label="Method">
           <div className="mt-">
-            <Select>
+            <Select value={httpMethod} onChange={(val) => setHttpMethod(val)}>
               {httpRequestTypes.map((item) => {
                 return (
                   <option key={item.key} value={item.key}>
