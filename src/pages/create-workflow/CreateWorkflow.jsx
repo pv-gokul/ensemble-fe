@@ -85,6 +85,10 @@ function App() {
     setCurrentSelectedNode(node);
   };
 
+  const handleNodeEditSubmit = (data) => {
+      console.log(data)
+  };
+
   return (
     <div className="flex flex-row h-full">
       <div className="bg-blue-300 p-5">
