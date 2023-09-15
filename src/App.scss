@@ -396,3 +396,68 @@ button {
   padding: 8px 8px;
   border-radius: 8px;
 }
+
+.workflow {
+  .header {
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+    border-bottom: 1px solid #efecf6;
+    background-color: #fff;
+
+    .info {
+      .name {
+        display: flex;
+
+        border-radius: 0;
+        font-size: 16px;
+        input {
+          margin-left: 8px;
+          font-size: 16px;
+        }
+      }
+      .input {
+        display: inline-block;
+      }
+    }
+    .buttons {
+      button {
+        background-color: $color_primary_lite;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 8px;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .drag-container {
+    background-color: #fff;
+    width: 350px;
+    padding: 24px;
+    border-left: 1px solid #efecf6;
+    overflow-y: scroll !important;
+    .title {
+      font-size: 16px;
+    }
+  }
+}
+
+.chakra-accordion__item {
+  border-color: $bg_color !important;
+
+  .stack {
+    gap: 4px;
+    padding: 16px;
+    div {
+      border: 1px solid $color_primary_lite;
+      width: 250px;
+    }
+  }
+
+  .drag-item {
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: grab;
+  }
+}

@@ -14,7 +14,7 @@ import NoAuthLayout from "./layout/NoAuthLayout";
 import { useState } from "react";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isSignedIn"));
 
   const handleLogin = () => {
     setIsAuth(true);

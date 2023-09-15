@@ -66,7 +66,7 @@ const WorkflowCreationSection = ({
       onDragOver={onDragOver}
       fitView
     >
-      <Background variant={BackgroundVariant.Lines} gap={12} size={1.5} />
+      <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
     </ReactFlow>
   );
 };
