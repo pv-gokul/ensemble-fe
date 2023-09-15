@@ -21,7 +21,7 @@ const Sidebar = () => {
     },
     {
       icon: FaCog,
-      path: "/configuration",
+      path: "/console",
     },
   ];
 
