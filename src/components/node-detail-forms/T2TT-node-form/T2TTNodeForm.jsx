@@ -25,7 +25,7 @@ const T2TTNodeForm = ({
   const handleModelSelectionChange = (id) => {
     setSelectedModelId(id);
   };
-  console.log(useFallback);
+  
   return (
     <FormWrapper onSubmit={handleSubmit} onCancel={onCancel}>
       <Stack spacing={4}>
