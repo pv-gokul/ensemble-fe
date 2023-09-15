@@ -1,24 +1,51 @@
+import {
+  UilTextFields,
+  UilFileInfoAlt,
+  UilKeyboard,
+  UilSmile,
+  UilFont,
+  UilMicrophone,
+  UilRss,
+  UilRightIndentAlt,
+  UilScenery,
+  UilImageEdit,
+  UilEnglishToChinese
+} from "@iconscout/react-unicons";
 
 export const getTransformedData = (menuData) => {
   const groupedData = {};
-  menuData.forEach(item => {
+  menuData.forEach((item) => {
     const category = item.category;
     const typeenum = item.typeenum;
 
     // If the category doesn't exist in groupedData, create it
     if (!groupedData[category]) {
-        groupedData[category] = {};
+      groupedData[category] = {};
     }
 
     // If the typeenum doesn't exist in the category, create it as an array
     if (!groupedData[category][typeenum]) {
-        groupedData[category][typeenum] = [];
+      groupedData[category][typeenum] = [];
     }
 
     // Add the item to the corresponding typeenum array within the category
     groupedData[category][typeenum].push(item);
-}); 
+  });
 
-return groupedData;
+  return groupedData;
+};
 
-}
+export const getIcon = (type) =>
+  ({
+    LanguageDetection: UilFont,
+    Sentiment: UilSmile,
+    Summarizer: UilFileInfoAlt,
+    PromptGenerator: UilKeyboard,
+    T2T: UilTextFields,
+    S2TT: UilRightIndentAlt,
+    S2ST: UilRss,
+    T2ST: UilMicrophone,
+    TI2I: UilImageEdit,
+    T2TT: UilEnglishToChinese,
+    T2I: UilScenery
+  }[type] || UilTextFields);
