@@ -13,7 +13,7 @@ import TI2INode from "../nodes/TI2INode/TI2INode";
 import T2STNode from "../nodes/T2STNode/T2STNode";
 import S2STNode from "../nodes/S2STNode/S2STNode";
 import S2TTNode from "../nodes/S2TTNode/S2TTNode";
-import AiNode from "../nodes/AINode/AiNode";
+import AiNode from "../nodes/AiNodes/AiNode";
 
 const WorkflowCreationSection = ({
   nodes,
