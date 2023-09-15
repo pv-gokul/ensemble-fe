@@ -8,8 +8,14 @@ export const pokemonApi = createApi({
     getAllWorkflows: builder.query({
       query: () => `workflow`,
     }),
+    getWorkflowById: builder.query({
+      query: (id) => `workflow/${id}`,
+    }),
     getAvailableModels: builder.query({
       query: (name) => `models`,
+    }),
+    getAllTemplates: builder.query({
+      query: (name) => `templates`,
     }),
     callModel: builder.mutation({
       query: ({ url, data }) => {
@@ -65,4 +71,5 @@ export const {
   useGetWorkflowByIdQuery,
   useLazyGetWorkflowByIdQuery,
   useUpdateWorkflowMutation
+  useGetAllTemplatesQuery
 } = pokemonApi;
