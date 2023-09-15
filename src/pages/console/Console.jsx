@@ -13,20 +13,20 @@ import {
   PopoverAnchor,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const headings = ["Name", "Created On", "Last Updated", "Status"];
 
 const Console = () => {
   const { data, error, isLoading } = useGetAllWorkflowsQuery();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCreate = () => {
-    history.push("/workflow/create");
+    navigate("/workflow/create");
   };
 
   const handleEdit = (id) => {
-    history.push(`/workflow/edit/${id}`);
+    navigate(`/workflow/edit/${id}`);
   };
 
   const handleDelete = () => {};

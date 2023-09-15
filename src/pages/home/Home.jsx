@@ -1,11 +1,11 @@
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetAllWorkflowsQuery } from "../../api/baseApi";
 import Banner from "../../components/banner/Banner";
 import { FaPlus } from "react-icons/fa";
 
 const Home = () => {
   const { data, error, isLoading } = useGetAllWorkflowsQuery();
-  const history = useHistory()
+  const navigate = useNavigate();
 
   // Define options for formatting
   const options = {
@@ -18,8 +18,8 @@ const Home = () => {
   };
 
   const handleClick = (item) => {
-   history.push(`/workflow/test/${item.id}`)
-  }
+    navigate(`/workflow/test/${item.id}`);
+  };
 
   return (
     <div className="home">
