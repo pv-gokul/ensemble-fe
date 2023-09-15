@@ -1,12 +1,22 @@
 import { useNodesState, useEdgesState, MarkerType } from "reactflow";
 import { useCallback, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
 import "reactflow/dist/style.css";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 import { useGetPokemonByNameQuery } from "../../api/baseApi";
-import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm"
-import { UilBracketsCurly } from "@iconscout/react-unicons";
+import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm";
 import { Stack, HStack, VStack } from "@chakra-ui/react";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
 import { workflowIcons } from "../../contants/constans";
@@ -18,7 +28,7 @@ const models = [
   { key: "startNode", label: "Start" },
   { key: "endNode", label: "End" },
   { key: "ifNode", label: "IF" },
-  { key: "codeNode", label: "Code",},
+  { key: "codeNode", label: "Code" },
   { key: "httpsNode", label: "Https" },
 ];
 
@@ -28,12 +38,12 @@ function App() {
   const [currentSelectedNode, setCurrentSelectedNode] = useState(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const reactFlowWrapper = useRef(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { data } = useGetPokemonByNameQuery();
 
   const handleOnConnect = useCallback(
     (params) => {
-      console.log({ params });
       setEdges((eds) => [
         ...eds,
         {
@@ -63,22 +73,20 @@ function App() {
   );
 
   const handleNodeDeleteClick = (id) => {
-    console.log({ id });
+    // TODO: Remove the edges also
     setNodes((prev) => {
-      console.log(prev);
       return prev.filter((item) => item.id !== id);
     });
   };
-
 
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const type = event.dataTransfer.getData('application/reactflow');
+      const type = event.dataTransfer.getData("application/reactflow");
 
-      if (typeof type === 'undefined' || !type) {
+      if (typeof type === "undefined" || !type) {
         return;
       }
 
@@ -107,20 +115,28 @@ function App() {
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-  }, []);
-
-  const handleNodeClick = useCallback((node) => {
-    setCurrentSelectedNode(node);
+    event.dataTransfer.dropEffect = "move";
   }, []);
 
   const onDragStart = (event, nodeType) => {
-    event.dataTransfer.setData('application/reactflow', nodeType);
-    event.dataTransfer.effectAllowed = 'move';
-  }
-  const handleNodeEditSubmit = (data) => {
-    console.log(data);
+    event.dataTransfer.setData("application/reactflow", nodeType);
+    event.dataTransfer.effectAllowed = "move";
   };
+
+  const handleNodeClick = useCallback((node) => {
+    setCurrentSelectedNode(node);
+    onOpen();
+  }, []);
+
+  const handleNodeEditSubmit = useCallback((data) => {
+    console.log(data, "Node Edit submitted");
+    setCurrentSelectedNode(null);
+  }, []);
+
+  const handleNodEditCancel = useCallback(() => {
+    onClose();
+    setCurrentSelectedNode(null);
+  }, []);
 
   return (
     <div className="flex flex-row h-full">
@@ -155,21 +171,38 @@ function App() {
           onDragOver={onDragOver}
         />
       </div>
+
       {currentSelectedNode && (
-        <div className="p-2 bg-blue-200 cursor-pointer">
-          <HStack>
-            <div>{workflowIcons[currentSelectedNode?.type]}</div>
-            <div>{currentSelectedNode.data.label}</div>
-          </HStack>
-          <div className="w-72">
-            {currentSelectedNode.type === "codeNode" && (
-              <CodeForm onSubmit={handleNodeEditSubmit} />
-            )}
-            {currentSelectedNode.type === "httpsNode" && (
-              <HttpNodeForm onSubmit={handleNodeEditSubmit} />
-            )}
-          </div>
-        </div>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>
+              <HStack>
+                <div>{workflowIcons[currentSelectedNode?.type]}</div>
+                <div>{currentSelectedNode.data.label}</div>
+              </HStack>
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <div className="p-2 cursor-pointer">
+                <div className="w-72">
+                  {currentSelectedNode.type === "codeNode" && (
+                    <CodeForm
+                      onSubmit={handleNodeEditSubmit}
+                      onCancel={handleNodEditCancel}
+                    />
+                  )}
+                  {currentSelectedNode.type === "httpsNode" && (
+                    <HttpNodeForm
+                      onSubmit={handleNodeEditSubmit}
+                      onCancel={handleNodEditCancel}
+                    />
+                  )}
+                </div>
+              </div>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       )}
     </div>
   );

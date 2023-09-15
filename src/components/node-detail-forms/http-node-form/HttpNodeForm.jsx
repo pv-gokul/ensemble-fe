@@ -11,8 +11,9 @@ const httpRequestTypes = [
   { key: "PUT", label: "PUT" },
 ];
 
-const HttpNodeForm = ({ onSubmit }) => {
+const HttpNodeForm = ({ onSubmit, onCancel }) => {
   const [httpMethod, setHttpMethod] = useState('GET');
+  const [httpUrl, setHttpUrl] = useState();
   const [sendHeaders, setSendHeaders] = useState(false);
   const [jsonHeader, setJsonHeader] = useState(
     '{ "Content-Type": "", "Authorization": "", "User-Agent": "" }'
@@ -25,10 +26,11 @@ const HttpNodeForm = ({ onSubmit }) => {
       ...(sendHeaders ? { header: jsonHeader } : {}),
       ...(sendBody ? { body: jsonBody } : {}),
       method: httpMethod,
+      url: httpUrl,
     });
   };
   return (
-    <FormWrapper onSubmit={handleOnSubmit}>
+    <FormWrapper onSubmit={handleOnSubmit} onCancel={onCancel} isSubmitDisabled={!httpUrl}>
       <Stack>
         <FieldWrapper label="Method">
           <div className="mt-">
@@ -45,14 +47,13 @@ const HttpNodeForm = ({ onSubmit }) => {
         </FieldWrapper>
 
         <FieldWrapper label="URL">
-          <Input placeholder="Url" />
+          <Input placeholder="Url" onChange={(e) => { setHttpUrl(e.target.value) }} />
         </FieldWrapper>
 
         <Stack spacing={2}>
           <FieldWrapper label="Send Headers">
             <Switch
               onChange={() => {
-                console.log("is working");
                 setSendHeaders((prev) => !prev);
               }}
               value={sendHeaders}
