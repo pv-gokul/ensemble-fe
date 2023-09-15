@@ -108,7 +108,10 @@ function App() {
         onNodeClick={handleNodeClick}
       />
       {currentSelectedNode && (
-        <div >
+        <div className="p-2 bg-blue-200 cursor-pointer">
+          <div onClick={() => setCurrentSelectedNode(null)}>
+            X
+          </div>
           Menu
         </div>
       )}
