@@ -1,10 +1,11 @@
 import { useNodesState, useEdgesState, MarkerType } from "reactflow";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "reactflow/dist/style.css";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 import { useGetPokemonByNameQuery } from "../../api/baseApi";
+import HttpNodeForm from '../../components/node-detail-forms/http-node-form/HttpNodeForm';
 
 const initialNodes = [];
 const initialEdges = [];
@@ -21,6 +22,8 @@ function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [currentSelectedNode, setCurrentSelectedNode] = useState(null);
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const reactFlowWrapper = useRef(null);
 
   const { data } = useGetPokemonByNameQuery();
 
@@ -64,28 +67,59 @@ function App() {
   };
 
   const onCustomNodeAdd = (key) => {
-    const nodeDetail = models.find((item) => item.key === key);
-    const id = uuidv4();
-    setNodes((nds) => [
-      ...nds,
-      {
-        id,
-        position: { x: 300, y: 100 },
-        data: {
-          label: nodeDetail?.label || "",
-          onDelete: () => handleNodeDeleteClick(id),
+    
+  };
+
+  const onDrop = useCallback(
+    (event) => {
+      event.preventDefault();
+
+      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+      const type = event.dataTransfer.getData('application/reactflow');
+
+      if (typeof type === 'undefined' || !type) {
+        return;
+      }
+
+      const position = reactFlowInstance.project({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      });
+
+      const nodeDetail = models.find((item) => item.key === type);
+      const id = uuidv4();
+      setNodes((nds) => [
+        ...nds,
+        {
+          id,
+          position,
+          data: {
+            label: nodeDetail?.label || "",
+            onDelete: () => handleNodeDeleteClick(id),
+          },
+          type,
         },
-        type: key,
-      },
-    ]);
-  };
+      ]);
+    },
+    [reactFlowInstance]
+  );
 
-  const handleNodeClick = (node) => {
+  const onDragOver = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const handleNodeClick = useCallback((node) => {
     setCurrentSelectedNode(node);
-  };
+  }, []);
 
-  const handleNodeEditSubmit = (data) => {
-      console.log(data)
+  const handleNodeEditSubmit = useCallback((data) => {
+      console.log(data);
+  }, []);
+
+  const onDragStart = (event, nodeType) => {
+    event.dataTransfer.setData('application/reactflow', nodeType);
+    event.dataTransfer.effectAllowed = 'move';
   };
 
   return (
@@ -99,6 +133,8 @@ function App() {
                 className=""
                 key={item.key}
                 onClick={() => onCustomNodeAdd(item.key)}
+                onDragStart={(event) => onDragStart(event, item.key)}
+                draggable
               >
                 <h4>{item.label}</h4>
               </div>
@@ -106,7 +142,7 @@ function App() {
           })}
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1" ref={reactFlowWrapper}>
         <WorkflowCreationSection
           nodes={nodes}
           onNodesChange={onNodesChange}
@@ -114,6 +150,9 @@ function App() {
           onEdgesChange={onEdgesChange}
           handleOnConnect={handleOnConnect}
           onNodeClick={handleNodeClick}
+          setReactFlowInstance={setReactFlowInstance}
+          onDrop={onDrop}
+          onDragOver={onDragOver}
         />
       </div>
       {currentSelectedNode && (
@@ -122,6 +161,7 @@ function App() {
           Menu
           <div className="w-72">
             {/* Render form components here */}
+            <HttpNodeForm onSubmit={handleNodeEditSubmit} />
           </div>
         </div>
       )}

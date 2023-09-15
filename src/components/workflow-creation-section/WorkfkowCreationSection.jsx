@@ -15,6 +15,9 @@ const WorkflowCreationSection = ({
   onEdgesChange,
   handleOnConnect,
   onNodeClick,
+  setReactFlowInstance,
+  onDrop,
+  onDragOver,
 }) => {
   const nodeTypes = useMemo(
     () => ({
@@ -40,6 +43,9 @@ const WorkflowCreationSection = ({
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onNodeClick={(_, node) => onNodeClick(node)}
+      onInit={setReactFlowInstance}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
     >
       <Background variant={BackgroundVariant.Lines} gap={12} size={1.5} />
     </ReactFlow>
