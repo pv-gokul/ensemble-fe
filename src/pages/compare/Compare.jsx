@@ -3,10 +3,16 @@ import { getComponentBytype } from "../../components/fields";
 import { CloseIcon } from "@chakra-ui/icons";
 import Preview from "./preview/Preview";
 import { useState, createRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Compare = () => {
-  const state = useSelector((state) => state.compare);
-  const InputComponent = getComponentBytype(state.inputType);
+  const navigate = useNavigate();
+  const state = useSelector((state) => state.compare.models);
+  console.log(state);
+  if (!state.length) {
+    navigate("/models");
+  }
+  const InputComponent = getComponentBytype(state[0]?.inputFormat[0]?.type);
   const [current, setCurrentInput] = useState(null);
   const [compareInput, setCompareInput] = useState(null);
   const inputRef = createRef();
@@ -23,13 +29,15 @@ const Compare = () => {
     <div className="compare">
       <div className="title">Compare your models</div>
       <div className="input">
-        {<InputComponent ref={inputRef} handleFieldChange={() => {}} />}
+        {InputComponent && (
+          <InputComponent ref={inputRef} handleFieldChange={() => {}} />
+        )}
       </div>
 
       <div className="selection">
         Selected:
         <div>
-          {state.models.map((item) => (
+          {state.map((item) => (
             <span>
               {item.name}
               <CloseIcon boxSize={2} />
@@ -41,8 +49,8 @@ const Compare = () => {
         <button onClick={handleCompare}>Compare</button>
       </div>
       <div className="results-container">
-        {state.models.map((item) => (
-          <Preview item={item} input={compareInput} />
+        {state.map((item) => (
+          <Preview item={item} input={compareInput} endpoint={item.endpoint} />
         ))}
       </div>
     </div>

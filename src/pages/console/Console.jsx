@@ -153,7 +153,7 @@ const Console = () => {
                 <td className="whitespace-nowrap px-6 py-4">Cell</td>
                 <td className="whitespace-nowrap px-6 py-4">Cell</td>
                 <td className="whitespace-nowrap px-6 py-4">
-                  <Switch id="email-alerts" />
+                  <Switch id="email-alerts" isChecked={true} />
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Popover>

@@ -1,19 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  compareModelData: [],
-}
+  models: [],
+};
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState,
   reducers: {
     setCompareModelData: (state, action) => {
-      state.compareModelData = action.payload
+      state.models = action.payload;
     },
   },
-})
+});
 
-export const { setCompareModelData } = counterSlice.actions
+export const { setCompareModelData } = counterSlice.actions;
 
-export default counterSlice.reducer
+export default counterSlice.reducer;

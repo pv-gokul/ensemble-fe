@@ -43,7 +43,7 @@ const Home = () => {
         <section className="workflow">
           <div className="title">Your Workflows</div>
           <div className="tile-container">
-            {workflows?.body?.map((item) => {
+            {workflows?.body?.slice(0, 5).map((item) => {
               const formattedDate = new Intl.DateTimeFormat(
                 "en-US",
                 options
@@ -74,7 +74,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <section className="workflow">
+        {/* <section className="workflow">
           <div className="title">Templates</div>
           <div className="tile-container">
             {(templates?.body || TEMPLATES_LIST).map((template) => (
@@ -86,7 +86,7 @@ const Home = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

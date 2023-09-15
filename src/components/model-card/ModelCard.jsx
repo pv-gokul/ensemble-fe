@@ -3,11 +3,11 @@ import { FaFire } from "react-icons/fa";
 import "./styles.scss";
 
 const ModelCard = ({ title, icon, input, output, popularity, updated }) => {
-  const Icon = icon;
+  // const Icon = icon;
   return (
     <div className="model-wrapper">
       <div className="model-header">
-        <Icon />
+        {/* <Icon /> */}
         <span className="chip-text">{title}</span>
       </div>
       <div className="meta-data-wrapper">

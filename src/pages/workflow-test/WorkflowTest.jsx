@@ -41,7 +41,7 @@ const WorkflowTest = (props) => {
 
   return (
     <div className="workflow-test">
-      <div className="workflow-diagram">Workflow diagram</div>
+      <div className="workflow-diagram title">Test your workflow</div>
       <div className="input-output">
         <div className="component input">
           <div className="heading">Input</div>
@@ -78,7 +78,7 @@ const WorkflowTest = (props) => {
           )}
         </div>
         <button className="test-button" onClick={handleTestWorkflow}>
-          <FcProcess />
+          Execute
         </button>
       </div>
     </div>

@@ -10,23 +10,38 @@ import Compare from "./pages/compare/Compare";
 import WorkflowTest from "./pages/workflow-test/WorkflowTest";
 import TemplatesList from "./pages/templates-list/TemplatesList";
 
+import NoAuthLayout from "./layout/NoAuthLayout";
+import { useState } from "react";
 
 function App() {
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isSignedIn"));
+
+  const handleLogin = () => {
+    setIsAuth(true);
+  };
+
   return (
     <BrowserRouter>
-      <AuthLayout>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/console" element={<Console />} />
-          <Route path="/models" element={<AiModelsList />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/createWorkflow" element={<CreateWorkflow />} />
-          <Route path="/workflow/edit/:id" element={<CreateWorkflow />} />
-          <Route path="/compare" element={<Compare />} />
-          <Route path="/workflow/test/:id" element={<WorkflowTest />} />
-          <Route path="/templates" element={<TemplatesList />} />
-        </Routes>
-      </AuthLayout>
+      {isAuth ? (
+        <AuthLayout>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/console" element={<Console />} />
+            <Route path="/models" element={<AiModelsList />} />
+            <Route path="/createWorkflow" element={<CreateWorkflow />} />
+            <Route path="/compare" element={<Compare />} />
+            <Route path="/workflow/test/:id" element={<WorkflowTest />} />
+            <Route path="/workflow/edit/:id" element={<CreateWorkflow />} />
+            <Route path="/templates" element={<TemplatesList />} />
+          </Routes>
+        </AuthLayout>
+      ) : (
+        <NoAuthLayout>
+          <Routes>
+            <Route path="*" element={<LoginPage onLogin={handleLogin} />} />
+          </Routes>
+        </NoAuthLayout>
+      )}
     </BrowserRouter>
   );
 }

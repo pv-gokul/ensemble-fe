@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useCallModelMutation } from "../../../api/baseApi";
 
-const Preview = ({ item, input }) => {
+const Preview = ({ item, input, endpoint }) => {
   const [call, { isError, data, isLoading }] = useCallModelMutation();
   useEffect(() => {
     console.log(input);
     if (!input) return;
     call({
-      url: item.url,
+      url: endpoint,
       data: {
         text: input,
       },

@@ -17,23 +17,18 @@ export const pokemonApi = createApi({
     getAllTemplates: builder.query({
       query: (name) => `templates`,
     }),
-    callModel: builder.mutation({
-      query: ({ url, data }) => {
-        return {
-          method: "POST",
-          url,
-          body: data, // The data to send in the POST request.
-        };
-      },
+    getModels: builder.query({
+      query: (name) => `models/hierarchy`,
     }),
+
     saveWorkflow: builder.mutation({
       query: (data) => {
         return {
           method: "POST",
-          url: 'workflow',
+          url: "workflow",
           body: data,
-        }
-      }
+        };
+      },
     }),
     triggerWorkflow: builder.mutation({
       query: ({ url, data }) => {
@@ -44,15 +39,31 @@ export const pokemonApi = createApi({
         };
       },
     }),
-    getWorkflowById: builder.query({
-      query: (id) => `workflow/${id}`,
-    }),
     updateWorkflow: builder.mutation({
-      query: ({payload, id}) => {
+      query: ({ payload, id }) => {
         return {
           method: "PUT",
           url: `workflow/${id}`,
           body: payload,
+        };
+      },
+    }),
+    getWorkflowById: builder.query({
+      query: (id) => `workflow/${id}`,
+    }),
+  }),
+});
+
+export const flaskApi = createApi({
+  reducerPath: "flaskApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "http://192.168.3.117:5000" }),
+  endpoints: (builder) => ({
+    callModel: builder.mutation({
+      query: ({ url, data }) => {
+        return {
+          method: "POST",
+          url,
+          body: data, // The data to send in the POST request.
         };
       },
     }),
@@ -64,12 +75,14 @@ export const pokemonApi = createApi({
 
 export const {
   useGetAllWorkflowsQuery,
-  useCallModelMutation,
   useGetAvailableModelsQuery,
   useSaveWorkflowMutation,
   useTriggerWorkflowMutation,
   useGetWorkflowByIdQuery,
   useLazyGetWorkflowByIdQuery,
   useUpdateWorkflowMutation,
-  useGetAllTemplatesQuery
+  useGetAllTemplatesQuery,
+  useGetModelsQuery,
 } = pokemonApi;
+
+export const { useCallModelMutation } = flaskApi;
