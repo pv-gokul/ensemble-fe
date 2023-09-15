@@ -51,6 +51,15 @@ export const pokemonApi = createApi({
     getWorkflowById: builder.query({
       query: (id) => `workflow/${id}`,
     }),
+    generateAiWorkFlow: builder.mutation({
+      query: (data) => {
+        return {
+          method: "POST",
+          url: '/wai',
+          body: data, // The data to send in the POST request.
+        };
+      },
+    })
   }),
 });
 
@@ -66,7 +75,7 @@ export const flaskApi = createApi({
           body: data, // The data to send in the POST request.
         };
       },
-    }),
+    })
   }),
 });
 
@@ -83,6 +92,7 @@ export const {
   useUpdateWorkflowMutation,
   useGetAllTemplatesQuery,
   useGetModelsQuery,
+  useGenerateAiWorkFlowMutation
 } = pokemonApi;
 
 export const { useCallModelMutation } = flaskApi;

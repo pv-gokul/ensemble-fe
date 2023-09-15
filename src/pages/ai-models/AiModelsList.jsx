@@ -20,8 +20,8 @@ const initialModelData = {
     {
       name: "Bert",
       icon: FaNeos,
-      input: { field: "string", type: "string" },
-      output: { field: "string", type: "string" },
+      inputFormat: [{ field: "string", type: "string" }],
+      outputFormat: { field: "string", type: "string" },
       endpoint: "string",
       popularity: "2.5K",
       updated: "Updated 2 days ago",
@@ -29,8 +29,8 @@ const initialModelData = {
     {
       name: "Chat gpt",
       icon: FaNeos,
-      input: { field: "string", type: "string" },
-      output: { field: "string", type: "string" },
+      inputFormat: [{ field: "string", type: "string" }],
+      outputFormat: { field: "string", type: "string" },
       endpoint: "string",
       popularity: "4.5K",
       updated: "Updated 12 hours ago",
@@ -81,7 +81,7 @@ const AiModelsList = () => {
                   <div className="task-subtype">
                     <Chip
                       label={subtype.name}
-                      icon={subtype.icon}
+                      type={subtype.key}
                       onClick={() => setSelectedTask(subtype)}
                       isActive={subtype?.key === selectedTask?.key}
                     />
@@ -112,8 +112,8 @@ const AiModelsList = () => {
               <ModelCard
                 title={model.name}
                 icon={model.icon}
-                input={model.input}
-                output={model.output}
+                input={model.inputFormat[0]}
+                output={model.outputFormat}
                 popularity={model.popularity}
                 updated={model.updated}
               />
