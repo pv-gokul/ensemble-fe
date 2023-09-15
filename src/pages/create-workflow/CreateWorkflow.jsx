@@ -1,5 +1,5 @@
 import { useNodesState, useEdgesState, MarkerType } from "reactflow";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Modal,
@@ -22,6 +22,7 @@ import { Stack, HStack, VStack } from "@chakra-ui/react";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
 import { workflowIcons } from "../../contants/constans";
 import ModelsDragMenu from "../../components/ModelsDragMenu/ModelsDragMenu";
+import T2TTNodeForm from "../../components/node-detail-forms/T2TT-node-form/T2TTNodeForm";
 
 const initialNodes = [];
 const initialEdges = [];
@@ -32,6 +33,7 @@ const models = [
   { key: "ifNode", label: "IF" },
   { key: "codeNode", label: "Code" },
   { key: "httpsNode", label: "Https" },
+  { key: "T2TT", label: "Text To Text Translation" },
 ];
 
 function App() {
@@ -86,6 +88,16 @@ function App() {
     });
   };
 
+  const handleNodeEditSubmit = (updatedData) => {
+    setNodes((prevNodes) => {
+      const editingNode = prevNodes.find((item) => item.id === currentSelectedNode.id);
+      const filteredNodes = prevNodes.filter((item) => item.id !== currentSelectedNode.id);
+      const modifiedEditingNode = {...editingNode, data: { ...editingNode.data, ...updatedData }};
+      return [...filteredNodes, modifiedEditingNode];
+    });
+    setCurrentSelectedNode(null);
+  };
+
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
@@ -135,11 +147,6 @@ function App() {
     onOpen();
   }, []);
 
-  const handleNodeEditSubmit = useCallback((data) => {
-    console.log(data, "Node Edit submitted");
-    setCurrentSelectedNode(null);
-  }, []);
-
   const handleNodEditCancel = useCallback(() => {
     onClose();
     setCurrentSelectedNode(null);
@@ -147,7 +154,6 @@ function App() {
 
   return (
     <div className="flex flex-row h-full">
-      
       <div className="flex-1" ref={reactFlowWrapper}>
         <WorkflowCreationSection
           nodes={nodes}
@@ -183,8 +189,8 @@ function App() {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>
-              <HStack>
+            <ModalHeader backgroundColor="white">
+              <HStack className="text-black">
                 <div>{workflowIcons[currentSelectedNode?.type]}</div>
                 <div>{currentSelectedNode.data.label}</div>
               </HStack>
@@ -201,6 +207,12 @@ function App() {
                   )}
                   {currentSelectedNode.type === "httpsNode" && (
                     <HttpNodeForm
+                      onSubmit={handleNodeEditSubmit}
+                      onCancel={handleNodEditCancel}
+                    />
+                  )}
+                  {currentSelectedNode.type === "T2TT" && (
+                    <T2TTNodeForm
                       onSubmit={handleNodeEditSubmit}
                       onCancel={handleNodEditCancel}
                     />

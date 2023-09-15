@@ -23,6 +23,7 @@ const CodeForm = ({ language = "javascript", code = null, onSubmit, onCancel }) 
           <Select defaultValue={language}>
             {availableLanguages.map((item) => (
               <option
+                key={item.value}
                 value={item.value}
                 onClick={() => setSelectedLanguage(item.value)}
               >

@@ -7,6 +7,7 @@ import EndNode from "../nodes/end-node/EndNode";
 import IfNode from "../nodes/if-node/IfNode";
 import CodeNode from "../nodes/code-node/CodeNode";
 import HttpsNode from "../nodes/https-node/HttpsNode";
+import T2TTNode from "../nodes/T2TTNode/T2TTNode";
 
 const WorkflowCreationSection = ({
   nodes,
@@ -21,6 +22,7 @@ const WorkflowCreationSection = ({
 }) => {
   const nodeTypes = useMemo(
     () => ({
+      T2TT: T2TTNode,
       startNode: StartNode,
       endNode: EndNode,
       ifNode: IfNode,

@@ -28,7 +28,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       {navs.map((nav) => (
-        <span onClick={() => handleChangeRoute(nav.path)}>
+        <span key={nav.path} onClick={() => handleChangeRoute(nav.path)}>
           <nav.icon color="grey" size={20} />
         </span>
       ))}

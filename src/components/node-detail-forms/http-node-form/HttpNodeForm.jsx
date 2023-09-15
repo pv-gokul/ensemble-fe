@@ -12,6 +12,7 @@ const httpRequestTypes = [
 ];
 
 const HttpNodeForm = ({ onSubmit, onCancel }) => {
+  const [name, setName] = useState('');
   const [httpMethod, setHttpMethod] = useState('GET');
   const [httpUrl, setHttpUrl] = useState();
   const [sendHeaders, setSendHeaders] = useState(false);
@@ -27,14 +28,18 @@ const HttpNodeForm = ({ onSubmit, onCancel }) => {
       ...(sendBody ? { body: jsonBody } : {}),
       method: httpMethod,
       url: httpUrl,
+      name,
     });
   };
   return (
     <FormWrapper onSubmit={handleOnSubmit} onCancel={onCancel} isSubmitDisabled={!httpUrl}>
       <Stack>
+        <FieldWrapper>
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
+        </FieldWrapper>
         <FieldWrapper label="Method">
           <div className="mt-">
-            <Select value={httpMethod} onChange={(val) => setHttpMethod(val)}>
+            <Select value={httpMethod} onChange={(e) => setHttpMethod(e.target.value)}>
               {httpRequestTypes.map((item) => {
                 return (
                   <option key={item.key} value={item.key}>
@@ -47,7 +52,7 @@ const HttpNodeForm = ({ onSubmit, onCancel }) => {
         </FieldWrapper>
 
         <FieldWrapper label="URL">
-          <Input placeholder="Url" onChange={(e) => { console.log(e.target.value); setHttpUrl(e.target.value) }} />
+          <Input placeholder="Url" onChange={(e) => { setHttpUrl(e.target.value) }} />
         </FieldWrapper>
 
         <Stack spacing={2}>
