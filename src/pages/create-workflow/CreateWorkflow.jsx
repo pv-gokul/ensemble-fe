@@ -18,7 +18,7 @@ import {
 import "reactflow/dist/style.css";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
-import { useGetAvailableModelsQuery } from "../../api/baseApi";
+import { useGetAvailableModelsQuery, useSaveWorkflowMutation } from "../../api/baseApi";
 import { HStack } from "@chakra-ui/react";
 import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
@@ -46,6 +46,7 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { data: modelsList, isLoading, isSuccess } = useGetAvailableModelsQuery();
+  const [saveWorkFlow, { data }] = useSaveWorkflowMutation();
 
   // TODO: handle the special scenario for if node since it has two outputs
   const handleOnConnect = useCallback(
@@ -156,8 +157,18 @@ function App() {
     setCurrentSelectedNode(null);
   }, []);
 
+  const handleSaveWorkflow = () => {
+    saveWorkFlow({
+      name: "workflow name",
+      config: {
+        nodes,
+        edges
+      },
+  });
+  };
   return (
     <div className="flex flex-row h-full">
+      <button onClick={handleSaveWorkflow}>SAveasdjfhaksdjfgaksdjhf</button>
       <div className="flex-1" ref={reactFlowWrapper}>
         <WorkflowCreationSection
           nodes={nodes}
