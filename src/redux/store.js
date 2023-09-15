@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
-import { pokemonApi } from "../api/baseApi";
-import compareSlice from "./compareSlice";
+import { pokemonApi } from '../api/baseApi';
+import compareSlice from './compareSlice';
 
 export const store = configureStore({
   reducer: {

@@ -11,9 +11,10 @@ function App() {
         <AuthLayout>
           {router.map((route) => (
             <Route
-              path={route.path}
-              component={route.Component}
               key={route.path}
+              path={route.path}
+              exact
+              component={route.Component}
             />
           ))}
         </AuthLayout>
