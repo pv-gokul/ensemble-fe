@@ -2,7 +2,6 @@ import { useNodesState, useEdgesState, MarkerType } from "reactflow";
 import { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "reactflow/dist/style.css";
-import { Select } from "@chakra-ui/react";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
 import { useGetPokemonByNameQuery } from "../../api/baseApi";
@@ -118,7 +117,7 @@ function App() {
         />
       </div>
       {currentSelectedNode && (
-        <div className="p-2 bg-blue-200 cursor-pointer">
+        <div className="p-5 bg-slate-300">
           <div onClick={() => setCurrentSelectedNode(null)}>X</div>
           Menu
           <div className="w-72">
