@@ -14,7 +14,7 @@ function AiNode({ data }) {
           <div className="w-12 h-12 flex items-center justify-center">
             <UilTextFields size="40" color="#fcba03" />
           </div>
-          <div className='text-center'>{data.label}</div>
+          <div className='text-center'>{data.model.type}</div>
           <div className='text-sm text-gray-400'>{data.name}</div>
         </div>
       </NodeMenuWrapper>

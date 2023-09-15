@@ -45,7 +45,7 @@ function App() {
   const reactFlowWrapper = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data, isLoading, isSuccess } = useGetAvailableModelsQuery();
+  const { data: modelsList, isLoading, isSuccess } = useGetAvailableModelsQuery();
 
   // TODO: handle the special scenario for if node since it has two outputs
   const handleOnConnect = useCallback(
@@ -106,12 +106,12 @@ function App() {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const type = event.dataTransfer.getData("application/reactflow");
+      const response = event.dataTransfer.getData("application/reactflow");
+      const { type, modelId } = JSON.parse(response);
 
       if (typeof type === "undefined" || !type) {
         return;
       }
-
       const position = reactFlowInstance.project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
@@ -127,12 +127,13 @@ function App() {
           data: {
             label: nodeDetail?.label || "",
             onDelete: () => handleNodeDeleteClick(id),
+            ...(modelId ? { model: modelsList.body.find((item) => item.id === modelId) }: {})
           },
           type,
         },
       ]);
     },
-    [reactFlowInstance]
+    [reactFlowInstance, modelsList]
   );
 
   const onDragOver = useCallback((event) => {

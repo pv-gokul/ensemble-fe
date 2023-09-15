@@ -3,6 +3,7 @@ import Home from "../pages/home/Home";
 import Console from "../pages/console/Console";
 import Compare from "../pages/compare/Compare";
 import WorkflowTest from "../pages/workflow-test/WorkflowTest";
+import AiModelsList from "../pages/ai-models/AiModelsList";
 
 const router = [
   {
@@ -28,6 +29,10 @@ const router = [
   {
     path:"/workflow/test/:id",
     Component: WorkflowTest
+  },
+  {
+    path: "/models",
+    Component: AiModelsList,
   }
 ];
 
