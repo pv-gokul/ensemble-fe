@@ -15,11 +15,13 @@ import {
 import "reactflow/dist/style.css";
 
 import WorkflowCreationSection from "../../components/workflow-creation-section/WorkfkowCreationSection";
-import { useGetPokemonByNameQuery } from "../../api/baseApi";
-import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm";
+import { useGetAvailableModelsQuery } from "../../api/baseApi";
+import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm"
+import { UilBracketsCurly } from "@iconscout/react-unicons";
 import { Stack, HStack, VStack } from "@chakra-ui/react";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
 import { workflowIcons } from "../../contants/constans";
+import ModelsDragMenu from "../../components/ModelsDragMenu/ModelsDragMenu";
 
 const initialNodes = [];
 const initialEdges = [];
@@ -43,7 +45,9 @@ function App() {
   console.log({nodes});
   console.log({edges});
 
-  const { data } = useGetPokemonByNameQuery();
+  const { data, isLoading, isSuccess  } = useGetAvailableModelsQuery();
+
+  console.log(data);
 
   const handleOnConnect = useCallback(
     (params) => {
@@ -143,24 +147,7 @@ function App() {
 
   return (
     <div className="flex flex-row h-full">
-      <div className="bg-blue-300 p-5">
-        <h3 className="text-lg pb-3">Models</h3>
-        <div>
-          {models.map((item) => {
-            return (
-              <div
-                className=""
-                key={item.key}
-                onClick={() => onCustomNodeAdd(item.key)}
-                onDragStart={(event) => onDragStart(event, item.key)}
-                draggable
-              >
-                <h4>{item.label}</h4>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      
       <div className="flex-1" ref={reactFlowWrapper}>
         <WorkflowCreationSection
           nodes={nodes}
@@ -173,6 +160,23 @@ function App() {
           onDrop={onDrop}
           onDragOver={onDragOver}
         />
+      </div>
+      <div className="bg-indigo-100 w-[250px]">
+        <h3 className="text-lg pb-3">Models</h3>
+          {/* {models.map((item) => {
+            return (
+              <div
+                className=""
+                key={item.key}
+                onClick={() => onCustomNodeAdd(item.key)}
+                onDragStart={(event) => onDragStart(event, item.key)}
+                draggable
+              >
+                <h4>{item.label}</h4>
+              </div>
+            );
+          })} */}
+          <ModelsDragMenu onDragStart={onDragStart} models={models}/>
       </div>
 
       {currentSelectedNode && (
