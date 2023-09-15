@@ -36,7 +36,7 @@ const WorkflowTest = (props) => {
   };
 
   const handleTestWorkflow = () => {
-    trigger({ url: `trigger-workflow/${id}`, data: formData });
+    trigger({ url: `workflow/trigger/${id}`, data: formData });
   };
 
   return (
