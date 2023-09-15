@@ -1,0 +1,57 @@
+@import "_variables.scss";
+
+.banner {
+  height: 200px;
+  background: #dce5ff;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  justify-content: space-evenly;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  .title {
+    color: $color_primary;
+    text-align: justify;
+    font-family: Raleway;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .sub {
+    color: #6751bf;
+    text-align: justify;
+    font-family: Raleway;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    z-index: 2;
+  }
+
+  button {
+    width: 180px;
+    padding: 12px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    background: linear-gradient(
+      180deg,
+      #784bee 42.71%,
+      rgba(255, 0, 122, 0.6) 100%
+    );
+  }
+  img {
+    left: 40%;
+    position: absolute;
+    width: 1000px;
+    height: auto;
+    z-index: 1;
+    filter: grayscale(100%);
+    mix-blend-mode: screen;
+  }
+}
