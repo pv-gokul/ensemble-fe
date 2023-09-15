@@ -65,7 +65,7 @@ const WorkflowCreationSection = ({
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      <Background variant={BackgroundVariant.Lines} gap={12} size={1.5} />
+      <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
     </ReactFlow>
   );
 };

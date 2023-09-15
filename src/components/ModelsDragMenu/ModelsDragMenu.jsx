@@ -21,7 +21,7 @@ const ModelsDragMenu = ({ models, onDragStart, onCustomNodeAdd }) => {
   }, [data]);
 
   return (
-    <div className="text-sm p-5">
+    <div className="drag-section">
       {/* {models.map((item) => {
       return (
         <div
@@ -37,31 +37,31 @@ const ModelsDragMenu = ({ models, onDragStart, onCustomNodeAdd }) => {
       <Accordion defaultIndex={[0]} allowMultiple>
         {Object.keys(menuData)?.map((item) => (
           <AccordionItem key={item}>
-            <h2>
-              <AccordionButton _expanded={{ bg: "#47269e", color: "white" }}>
-                <Box as="span" flex="1" textAlign="left">
-                  {item}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                {item}
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+
             <AccordionPanel p={0}>
-              <VStack>
+              <VStack className="stack">
                 {Object.keys(menuData[item]).map((typeenum) => (
                   <div
+                    className="drag-item"
                     key={typeenum}
-                    className="inline-flex items-center border border-gray-300 rounded-lg p-2 mt-1 bg-white cursor-pointer w-full justify-between"
-                    onDragStart={(event) => onDragStart(
-                      event,
-                      JSON.stringify({
-                        type: typeenum,
-                        modelId: menuData[item][typeenum][0].id,
-                      })
-                    )}
+                    onDragStart={(event) =>
+                      onDragStart(
+                        event,
+                        JSON.stringify({
+                          type: typeenum,
+                          modelId: menuData[item][typeenum][0].id,
+                        })
+                      )
+                    }
                     draggable
                   >
                     <h4>{menuData[item][typeenum][0].type}</h4>
-                    <UilBars />
                   </div>
                 ))}
               </VStack>
@@ -70,19 +70,18 @@ const ModelsDragMenu = ({ models, onDragStart, onCustomNodeAdd }) => {
         ))}
 
         <AccordionItem>
-          <h2>
-            <AccordionButton _expanded={{ bg: "#47269e", color: "white" }}>
-              <Box as="span" flex="1" textAlign="left">
-                General node
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
+          <AccordionButton>
+            <Box as="span" flex="1" textAlign="left">
+              General node
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+
           <AccordionPanel p={0}>
-            <VStack>
+            <VStack className="stack">
               {generalModels.map((item) => (
                 <div
-                  className="inline-flex items-center border border-gray-300 rounded-lg p-2 mt-1 bg-white cursor-pointer w-full justify-between"
+                  className="drag-item"
                   key={item.key}
                   onDragStart={(event) =>
                     onDragStart(
@@ -95,7 +94,6 @@ const ModelsDragMenu = ({ models, onDragStart, onCustomNodeAdd }) => {
                   draggable
                 >
                   <h4>{item.label}</h4>
-                  <UilBars />
                 </div>
               ))}
             </VStack>

@@ -217,41 +217,34 @@ function App() {
     // TODO: execute handler
   };
   return (
-    <div className="flex flex-row h-full">
+    <div className="flex flex-row h-full workflow">
       <div className="flex-1 flex-col" ref={reactFlowWrapper}>
-        <div
-          id="workflowHeader"
-          className="h-[60px] bg-white border-b-2 border-solid border-efecf6 pl-3 pt-3 flex justify-between"
-        >
-          <Input
-            variant="unstyled"
-            placeholder="Please provide a name for the workflow"
-            value={workflowName}
-            w={500}
-            _placeholder={{
-              // Set the color for the placeholder text
-              fontSize: "16", // Set the font style (e.g., italic)
-              // You can add more CSS properties as needed
-            }}
-            h={6}
-            fontSize={27}
-            onChange={(e) => setWorkflowName(e.target.value)}
-          />
-          <div className="flex gap-2 pr-5">
-            <Button
-              colorScheme="gray"
-              variant="solid"
-              onClick={handleSaveWorkflow}
-            >
-              Save
-            </Button>
-            <Button
-              colorScheme="purple"
-              variant="outline"
-              onClick={handleExecute}
-            >
-              Execute
-            </Button>
+        <div id="workflowHeader" className="header">
+          <div className="info">
+            {" "}
+            <div className="title">Edit Workflow</div>
+            <div className="name">
+              <div>Name:</div>
+              <Input
+                className="input"
+                variant="unstyled"
+                placeholder="Please provide a name for the workflow"
+                value={workflowName}
+                w={300}
+                _placeholder={{
+                  // Set the color for the placeholder text
+                  fontSize: "16", // Set the font style (e.g., italic)
+                  // You can add more CSS properties as needed
+                }}
+                h={6}
+                fontSize={27}
+                onChange={(e) => setWorkflowName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="buttons">
+            <button onClick={handleSaveWorkflow}>Save</button>
+            <button onClick={handleExecute}>Execute</button>
           </div>
         </div>
         <WorkflowCreationSection
@@ -266,8 +259,8 @@ function App() {
           onDragOver={onDragOver}
         />
       </div>
-      <div className="bg-indigo-100 w-[250px]">
-        <h3 className="text-lg pb-3">Models</h3>
+      <div className="drag-container">
+        <h3 className="title">Models</h3>
         <ModelsDragMenu onDragStart={onDragStart} models={models} />
       </div>
 

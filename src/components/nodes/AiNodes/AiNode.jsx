@@ -11,7 +11,7 @@ function AiNode({ data }) {
     <>
       <CustomNodeHandle type="target" position={Position.Left} />
       <NodeMenuWrapper data={data}>
-        <div className="bg-white border-green-600 border-4 p-2 flex flex-col items-center rounded-xl">
+        <div className="bg-white  border-2 p-2 flex flex-col items-center rounded-xl">
           <div className="w-12 h-12 flex items-center justify-center">
             <Icon size="40" color="#fcba03" />
           </div>
