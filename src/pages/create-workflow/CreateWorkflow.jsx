@@ -20,6 +20,7 @@ import CodeForm from "../../components/node-detail-forms/code-node-form/CodeForm
 import { Stack, HStack, VStack } from "@chakra-ui/react";
 import HttpNodeForm from "../../components/node-detail-forms/http-node-form/HttpNodeForm";
 import { workflowIcons } from "../../contants/constans";
+import T2TTNodeForm from "../../components/node-detail-forms/T2TT-node-form/T2TTNodeForm";
 
 const initialNodes = [];
 const initialEdges = [];
@@ -30,6 +31,7 @@ const models = [
   { key: "ifNode", label: "IF" },
   { key: "codeNode", label: "Code" },
   { key: "httpsNode", label: "Https" },
+  { key: "T2TT", label: "Text To Text Translation" },
 ];
 
 function App() {
@@ -176,8 +178,8 @@ function App() {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>
-              <HStack>
+            <ModalHeader backgroundColor="white">
+              <HStack className="text-black">
                 <div>{workflowIcons[currentSelectedNode?.type]}</div>
                 <div>{currentSelectedNode.data.label}</div>
               </HStack>
@@ -194,6 +196,12 @@ function App() {
                   )}
                   {currentSelectedNode.type === "httpsNode" && (
                     <HttpNodeForm
+                      onSubmit={handleNodeEditSubmit}
+                      onCancel={handleNodEditCancel}
+                    />
+                  )}
+                  {currentSelectedNode.type === "T2TT" && (
+                    <T2TTNodeForm
                       onSubmit={handleNodeEditSubmit}
                       onCancel={handleNodEditCancel}
                     />
