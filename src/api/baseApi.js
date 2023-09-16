@@ -48,9 +48,6 @@ export const pokemonApi = createApi({
         };
       },
     }),
-    getWorkflowById: builder.query({
-      query: (id) => `workflow/${id}`,
-    }),
     generateAiWorkFlow: builder.mutation({
       query: (data) => {
         return {

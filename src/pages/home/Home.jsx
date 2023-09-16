@@ -111,7 +111,6 @@ const Home = () => {
   const handleSubmitCreate = async () => {
     if (aiEnabled) {
       const result = await getAiWorkflow({ text: aiPromptData });
-      console.log(result);
       const nodes = getNodesFromAiResponse(result.data.body.text);
 
       if (modelsList && modelsList.body) {
@@ -150,8 +149,6 @@ const Home = () => {
         resultNodes.push(endNode);
         let newEdge = createEdge(lastNode.id, endNode.id);
         resultEdges.push(newEdge);
-        console.log(resultNodes);
-        console.log(resultEdges);
 
         const payload = {
           name,
@@ -195,15 +192,6 @@ const Home = () => {
               return (
                 <div className="item" onClick={() => handleClick(item)}>
                   <div className="images">
-                    {/* {nodes.map((node) => {
-                      const image = node.data?.model?.id;
-                      console.log(image);
-                      if (image) {
-                        return (
-                          <img src={`public/images/${image}.webp`} alt="node" />
-                        );
-                      }
-                    })} */}
                   </div>
                   <div className="name">{item.name}</div>
                   <div className="update">Updated on {formattedDate}</div>

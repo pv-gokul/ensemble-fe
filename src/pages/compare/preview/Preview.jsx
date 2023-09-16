@@ -4,7 +4,6 @@ import { useCallModelMutation } from "../../../api/baseApi";
 const Preview = ({ item, input, endpoint }) => {
   const [call, { isError, data, isLoading }] = useCallModelMutation();
   useEffect(() => {
-    console.log(input);
     if (!input) return;
     call({
       url: endpoint,

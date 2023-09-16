@@ -89,14 +89,11 @@ const TemplatesList = () => {
   const handleCreateCopyWithExistingData = async () => {
     try {
       const res = await getWorkflowDetails(selectedTemplateId);
-      console.log(res);
       const newWorkflowBody = {
         name: newWorkflowName,
         config: res.data.body.config,
       };
-      console.log(newWorkflowBody);
       const saveWorkflowResult = await saveWorkFlow(newWorkflowBody);
-      console.log(saveWorkflowResult);
       if (saveWorkflowResult.data.body.id) {
         navigate(`/workflow/edit/${saveWorkflowResult.data.body.id}`);
       }
@@ -128,7 +125,7 @@ const TemplatesList = () => {
               <div className="footer">
                 <div className="flex flex-row flex-1 justify-end">
                   <button className="mr-2">Test</button>
-                  <button>Create Copy</button>
+                  <button onClick={() => handleCreateCopy(item.id)}>Create Copy</button>
                 </div>
               </div>
             </div>
