@@ -68,7 +68,7 @@ const WorkflowTest = (props) => {
         <div className="component input">
           <div className="heading">Input</div>
           <InputComponent
-            inputDefinitions={workflow.input}
+            inputDefinitions={nodes[1]?.data?.model?.inputFormat}
             handleFieldChange={handleFieldChange}
             formData={formData}
           />
@@ -93,10 +93,12 @@ const WorkflowTest = (props) => {
               />
             </svg>
           ) : (
+            <div className="mt-4">
             <OutputComponent
               output={output}
-              outputDefinition={workflow.output}
+              outputDefinition={nodes[nodes.length - 2]?.data?.model?.outputFormat}
             />
+            </div>
           )}
         </div>
         <button className="test-button" onClick={handleTestWorkflow}>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const OutputComponent = ({ output, outputDefinition }) => {
-  const content = output?.[outputDefinition.field];
+  const content = output?.[outputDefinition?.field];
 
   return (
     <>
@@ -9,7 +9,7 @@ const OutputComponent = ({ output, outputDefinition }) => {
         {
           text: <div>{content}</div>,
           image: <img src={content} className="h-full" />,
-        }[outputDefinition.type]}
+        }[outputDefinition?.type]}
     </>
   );
 };
