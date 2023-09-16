@@ -12,6 +12,7 @@ import TemplatesList from "./pages/templates-list/TemplatesList";
 
 import NoAuthLayout from "./layout/NoAuthLayout";
 import { useState } from "react";
+import BillingPlan from "./pages/billing-plan/BillingPlan";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isSignedIn"));
@@ -33,6 +34,7 @@ function App() {
             <Route path="/workflow/test/:id" element={<WorkflowTest />} />
             <Route path="/workflow/edit/:id" element={<CreateWorkflow />} />
             <Route path="/templates" element={<TemplatesList />} />
+            <Route path="/plans" element={<BillingPlan />} />
           </Routes>
         </AuthLayout>
       ) : (

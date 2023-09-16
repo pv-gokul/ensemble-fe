@@ -11,31 +11,23 @@ import { useGetModelsQuery } from "../../api/baseApi";
 import { useNavigate } from "react-router-dom";
 
 const initialModelData = {
-  name: "Summarizer",
-  key: "summarizer",
-  icon: FaNeos,
-  description:
-    "A text summarizer is an online tool that wraps up a text to a specified short length. It condenses a long article to main points.",
-  models: [
+  id: "513672ed-9aad-4c11-a659-1540b8d3fac5",
+  name: "Language Detection",
+  endpoint: "http://192.168.3.117:5000/detect-lang",
+  paid: false,
+  inputFormat: [
     {
-      name: "Bert",
-      icon: FaNeos,
-      inputFormat: [{ field: "string", type: "string" }],
-      outputFormat: { field: "string", type: "string" },
-      endpoint: "string",
-      popularity: "2.5K",
-      updated: "Updated 2 days ago",
-    },
-    {
-      name: "Chat gpt",
-      icon: FaNeos,
-      inputFormat: [{ field: "string", type: "string" }],
-      outputFormat: { field: "string", type: "string" },
-      endpoint: "string",
-      popularity: "4.5K",
-      updated: "Updated 12 hours ago",
+      field: "text",
+      type: "text",
     },
   ],
+  outputFormat: {
+    field: "src",
+    type: "text",
+  },
+  typeenum: "LanguageDetection",
+  type: "Language Detection",
+  category: "NLP",
 };
 
 const AiModelsList = () => {
@@ -112,7 +104,7 @@ const AiModelsList = () => {
                 input={model.inputFormat[0]}
                 output={model.outputFormat}
                 popularity={model.popularity}
-                updated={model.updated}
+                updated={model.updatedAt}
               />
             </div>
           ))}
