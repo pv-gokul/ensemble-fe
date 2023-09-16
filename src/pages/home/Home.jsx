@@ -26,6 +26,7 @@ import { TEMPLATES_LIST } from "../templates-list/TemplatesList";
 import { useState } from "react";
 import "./styles.scss";
 import { MarkerType } from "reactflow";
+import { getIcon, getIconColor } from "../../utils/menuData";
 
 const Home = () => {
   const { data, error, isLoading } = useGetAllWorkflowsQuery();
@@ -181,7 +182,7 @@ const Home = () => {
         <section className="workflow">
           <div className="title">Your Workflows</div>
           <div className="tile-container">
-            {workflows?.body?.slice(0, 5).map((item) => {
+            {workflows?.body?.map((item) => {
               const formattedDate = new Intl.DateTimeFormat(
                 "en-US",
                 options
@@ -191,7 +192,13 @@ const Home = () => {
 
               return (
                 <div className="item" onClick={() => handleClick(item)}>
-                  <div className="images">
+                  <div className="images flex gap-2">
+                    {nodes.map((node) => {
+                      const Icon = node.type!== 'startNode' && node.type!= 'endNode' && getIcon(node.type)
+                        return (
+                          Icon && <Icon size={20} color={getIconColor(node.type)}/>
+                        );
+                    })}
                   </div>
                   <div className="name">{item.name}</div>
                   <div className="update">Updated on {formattedDate}</div>

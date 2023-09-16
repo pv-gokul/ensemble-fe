@@ -88,6 +88,7 @@ const TemplatesList = () => {
 
   const handleCreateCopyWithExistingData = async () => {
     try {
+      console.log(selectedTemplateId)
       const res = await getWorkflowDetails(selectedTemplateId);
       const newWorkflowBody = {
         name: newWorkflowName,
@@ -151,9 +152,9 @@ const TemplatesList = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleCreateCopyWithExistingData}>
+            <button onClick={handleCreateCopyWithExistingData}>
               Create Copy
-            </Button>
+            </button>
           </ModalFooter>
         </ModalContent>
       </Modal>

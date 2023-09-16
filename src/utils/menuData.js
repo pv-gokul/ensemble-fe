@@ -10,7 +10,10 @@ import {
   UilScenery,
   UilImageEdit,
   UilEnglishToChinese,
-  UilProcess
+  UilProcess,
+  UilArrowsLeftDown,
+  UilBracketsCurly,
+  UilGlobe
 } from "@iconscout/react-unicons";
 
 export const getTransformedData = (menuData) => {
@@ -48,5 +51,27 @@ export const getIcon = (type) =>
     T2ST: UilMicrophone,
     TI2I: UilImageEdit,
     T2TT: UilEnglishToChinese,
-    T2I: UilScenery
+    T2I: UilScenery,
+    ifNode: UilArrowsLeftDown,
+    codeNode: UilBracketsCurly,
+    httpsNode: UilGlobe
   }[type] || UilProcess);
+
+  export const getIconColor = (type) =>
+  ({
+    LanguageDetection: 'yellow',
+    Sentiment: 'blue',
+    Summarizer: "orange",
+    PromptGenerator: 'red',
+    T2T: 'green',
+    S2TT: 'grey',
+    S2ST: 'purple',
+    T2ST: 'violet',
+    TI2I: 'cyan',
+    T2TT: 'brown',
+    T2I: 'indigo',
+    ifNode: '#fc037f',
+    codeNode: '#fcba03',
+    httpsNode: 'blue'
+  }[type] || 'black');
+
