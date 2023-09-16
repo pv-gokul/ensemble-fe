@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useCallback, useMemo } from "react";
-import ReactFlow, { Background, BackgroundVariant } from "reactflow";
+import ReactFlow, { Background, BackgroundVariant, Controls } from "reactflow";
 
 import StartNode from "../nodes/start-node/StartNode";
 import EndNode from "../nodes/end-node/EndNode";
@@ -25,6 +25,7 @@ const WorkflowCreationSection = ({
   setReactFlowInstance,
   onDrop,
   onDragOver,
+  defaultViewport,
 }) => {
   const nodeTypes = useMemo(
     () => ({

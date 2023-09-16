@@ -50,18 +50,20 @@ const WorkflowTest = (props) => {
     }
   }, [data]);
 
-
   const handleTestWorkflow = () => {
     trigger({ url: `workflow/trigger/${id}`, data: formData });
   };
+
+  const defaultViewport = { x: 0, y: 0, zoom: 0.4 };
 
   return (
     <div className="workflow-test">
       <div className="workflow-diagram title">
         Test your workflow
-      <WorkflowCreationSection
+        <WorkflowCreationSection
           nodes={nodes}
           edges={edges}
+          defaultViewport={defaultViewport}
         />
       </div>
       <div className="input-output">
@@ -94,10 +96,12 @@ const WorkflowTest = (props) => {
             </svg>
           ) : (
             <div className="mt-4">
-            <OutputComponent
-              output={output}
-              outputDefinition={nodes[nodes.length - 2]?.data?.model?.outputFormat}
-            />
+              <OutputComponent
+                output={output}
+                outputDefinition={
+                  nodes[nodes.length - 2]?.data?.model?.outputFormat
+                }
+              />
             </div>
           )}
         </div>

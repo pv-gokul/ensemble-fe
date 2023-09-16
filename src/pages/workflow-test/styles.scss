@@ -5,6 +5,11 @@
   flex-direction: column;
   gap: 16px;
   height: 100%;
+  overflow: hidden;
+
+  .react-flow__viewport {
+    transform: translate(193.001px, -71.25px) scale(0.5) !important;
+  }
   .workflow-diagram {
     background-color: white;
     border-radius: 8px;
