@@ -436,7 +436,14 @@ button {
     width: 350px;
     padding: 24px;
     border-left: 1px solid #efecf6;
-    overflow-y: scroll !important;
+    overflow-y: auto;
+    height: calc(100vh - 76px);
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #c8c8c8;
+    }
     .title {
       font-size: 16px;
     }
