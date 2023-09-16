@@ -15,10 +15,12 @@ const InputComponent = ({ inputDefinitions, handleFieldChange, formData }) => {
     },
   };
 
+  const DefaultNode = fieldTypeData.text.component;
+
   return (
     <>
-      {inputDefinitions?.map((input) => {
-        const InputField = fieldTypeData[input.type]?.component;
+      {inputDefinitions ? inputDefinitions?.map((input) => {
+        const InputField = fieldTypeData[input.type]?.component
         return (
           <InputField
             handleFieldChange={handleFieldChange}
@@ -28,7 +30,15 @@ const InputComponent = ({ inputDefinitions, handleFieldChange, formData }) => {
             classes={fieldTypeData[input.type]?.classes}
           />
         );
-      })}
+      }) : 
+        <DefaultNode
+          handleFieldChange={handleFieldChange}
+          fieldName='text'
+          value={formData['text'] || ""}
+          key='text'
+          classes={fieldTypeData['text']?.classes}
+        />}
+      
     </>
   );
 };
