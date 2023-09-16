@@ -235,7 +235,7 @@ const Home = () => {
             Create a new workflow
           </ModalHeader>
           <ModalCloseButton />
-          <hr class="h-px my-8 bg-gray-300 border-0 my-0 mx-6" />
+          {/* <hr class="h-px my-8 bg-gray-300 border-0 my-0 mx-6" /> */}
           <ModalBody>
             <>
               <Text mb="8px">Workflow name</Text>
