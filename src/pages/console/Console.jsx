@@ -109,8 +109,6 @@ const Console = () => {
       resultNodes.push(endNode);
       let newEdge = createEdge(lastNode.id, endNode.id);
       resultEdges.push(newEdge);
-      console.log(resultNodes);
-      console.log(resultEdges);
     }
   }, [modelsList]);
 

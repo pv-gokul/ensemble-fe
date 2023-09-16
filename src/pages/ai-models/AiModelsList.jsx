@@ -45,8 +45,6 @@ const AiModelsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(data);
-
   const modelData = data?.body;
 
   const handleCompareCheck = (e, value) => {
@@ -62,7 +60,6 @@ const AiModelsList = () => {
     const modelData = compareModels.map((id) => {
       return selectedTask.models.find((model) => model.id === id);
     });
-    console.log(modelData);
     dispatch(setCompareModelData(modelData));
     navigate("/compare");
   };

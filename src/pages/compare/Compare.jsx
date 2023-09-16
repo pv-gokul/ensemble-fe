@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const Compare = () => {
   const navigate = useNavigate();
   const state = useSelector((state) => state.compare.models);
-  console.log(state);
   if (!state.length) {
     navigate("/models");
   }

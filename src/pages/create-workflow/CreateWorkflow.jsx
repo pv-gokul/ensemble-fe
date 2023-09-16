@@ -68,7 +68,6 @@ function App() {
   const idMatch = currentURL.match(/\/workflow\/edit\/(\d+)/);
 
   const id = idMatch?.[1];
-  console.log(id);
   const {
     data: workflowData,
     error,
@@ -202,7 +201,6 @@ function App() {
 
   const handleSaveWorkflow = () => {
     const isEdit = window.location.href.includes("/edit/");
-    // console.log(isEdit,window.location.href, "yo")
     const payload = {
       name: workflowName,
       config: {
@@ -211,7 +209,6 @@ function App() {
       },
     };
     if (isEdit) {
-      console.log(payload);
       updateWorkflow({ payload, id });
     } else saveWorkFlow(payload);
   };
