@@ -8,6 +8,7 @@ import {
   FaNetworkWired,
   FaHeadSideVirus,
   FaRegClone,
+  FaRupeeSign,
 } from "react-icons/fa";
 
 const Sidebar = () => {
@@ -33,6 +34,10 @@ const Sidebar = () => {
     {
       icon: FaNetworkWired,
       path: "/console",
+    },
+    {
+      icon: FaRupeeSign,
+      path: "/plans",
     },
   ];
 

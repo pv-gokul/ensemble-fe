@@ -1,0 +1,30 @@
+@import "../../variables";
+
+.pricing-card {
+  border: 1px solid $color_primary;
+  border-radius: 8px;
+  height: 50vh;
+  width: 20%;
+}
+.pricing-type {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 10px;
+  background-color: $color_primary;
+  padding: 16px 24px;
+}
+.pricing-details {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 80%;
+}
+.pricing-cost {
+  font-size: 2rem;
+  color: $color_primary;
+}
+.pricing-features {
+  text-align: center;
+}
