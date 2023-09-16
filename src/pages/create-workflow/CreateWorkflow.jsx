@@ -15,6 +15,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import "reactflow/dist/style.css";
 import { Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
@@ -73,6 +74,8 @@ function App() {
     error,
     isLoading: isWorkflowLoading,
   } = useGetWorkflowByIdQuery(id);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (workflowData?.body) {
@@ -214,7 +217,7 @@ function App() {
   };
 
   const handleExecute = () => {
-    // TODO: execute handler
+    navigate(`/workflow/test/${id}`);
   };
   return (
     <div className="flex flex-row h-full workflow">
